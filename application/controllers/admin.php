@@ -22,6 +22,9 @@ class Admin extends CI_Controller
 	{
 		$this->load->view('admin/v_login');
 	}
-
+	public function Nghia()
+	{
+		echo "Nghia";
+	}
 }
 ?>
