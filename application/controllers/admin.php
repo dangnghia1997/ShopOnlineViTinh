@@ -29,5 +29,9 @@ class Admin extends CI_Controller
 		return 1;
 	}
 
+	public function Nghia()
+	{
+		echo "Nghia";
+	}
 }
 ?>
