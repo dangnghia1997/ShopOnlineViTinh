@@ -18,6 +18,12 @@ class Product extends CI_Controller {
 		$data['view']='admin/product/v_addproduct';
 		$this->load->view('layouts/admin/layout',$data);
 	}
+	public function listProduct()
+	{
+		# code...
+		$data['view']='admin/product/v_listproduct';
+		$this->load->view('layouts/admin/layout',$data);
+	}
 
 }
 

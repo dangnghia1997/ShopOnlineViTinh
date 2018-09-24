@@ -23,5 +23,11 @@ class Admin extends CI_Controller
 		$this->load->view('admin/v_login');
 	}
 
+	public function ControllerQuoc()
+	{
+		# code...
+		return 1;
+	}
+
 }
 ?>

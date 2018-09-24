@@ -8,7 +8,7 @@
                             <ul aria-expanded="false" class="collapse  first-level">
                                 <li class="sidebar-item"><a href="<?php echo base_url() ?>product/addproduct" class="sidebar-link"><i class="mdi mdi-plus-box"></i><span class="hide-menu"> Thêm sản phẩm </span></a></li>
                                 <li class="sidebar-item"><a href="form-basic.html" class="sidebar-link"><i class="mdi mdi-apps"></i><span class="hide-menu"> Loại sản phẩm </span></a></li>
-                                <li class="sidebar-item"><a href="form-wizard.html" class="sidebar-link"><i class="mdi mdi-format-list-bulleted"></i><span class="hide-menu"> Danh sách sản phấm </span></a></li>
+                                <li class="sidebar-item"><a href="<?php echo base_url() ?>product/listproduct" class="sidebar-link"><i class="mdi mdi-format-list-bulleted"></i><span class="hide-menu"> Danh sách sản phấm </span></a></li>
                                 <li class="sidebar-item"><a href="form-wizard.html" class="sidebar-link"><i class="mdi mdi-percent"></i><span class="hide-menu"> Sản phẩm trả góp </span></a></li>
                             </ul>
                         </li>
