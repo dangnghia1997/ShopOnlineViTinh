@@ -15,6 +15,11 @@ class controller extends CI_Controller {
 	{
 		return 1;
 	}
+	public function FunctionName()
+	{
+		# code...
+		return 2;
+	}
 
 }
 
