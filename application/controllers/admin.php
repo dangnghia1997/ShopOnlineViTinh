@@ -32,7 +32,11 @@ class Admin extends CI_Controller
 	public function Nghia()
 	{
 		echo "Nghia";
+
 		echo "Test Push";
+
+		echo "Quốc";
+
 	}
 }
 ?>
