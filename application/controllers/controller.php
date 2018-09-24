@@ -11,6 +11,10 @@ class controller extends CI_Controller {
 	{	
 		$this->load->view('admin/html/ltr/index.php');
 	}
+	public function test1()
+	{
+		return 1;
+	}
 
 }
 
