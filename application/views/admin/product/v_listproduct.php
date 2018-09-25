@@ -1,6 +1,6 @@
     <div class="card">
         <div class="card-body">
-            <h5 class="card-title">Basic Datatable</h5>
+            <h3 class="card-title">Danh sách sản phẩm</h3>
             <div class="table-responsive">
                 <div id="zero_config_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
                     <div class="row">
@@ -15,58 +15,44 @@
                         <table id="zero_config" class="table table-striped table-bordered dataTable" role="grid" aria-describedby="zero_config_info">
                     <thead>
                         <tr role="row">
-                            <th class="sorting" tabindex="0" aria-controls="zero_config" rowspan="1" colspan="1" aria-label="Name: activate to sort column ascending" style="width: 144px;">Tên</th>
-                            <th class="sorting" tabindex="0" aria-controls="zero_config" rowspan="1" colspan="1" aria-label="Name: activate to sort column ascending" style="width: 144px;">Hình ảnh</th>
-                            <th class="sorting" tabindex="0" aria-controls="zero_config" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 232px;">Position</th>
-                            <th class="sorting" tabindex="0" aria-controls="zero_config" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 104px;">Office
+                            <th class="sorting" tabindex="0" aria-controls="zero_config" rowspan="1" colspan="1" style="width: 124px; font-weight: bold; text-align: center">Tên</th>
+                            <th class="sorting" tabindex="0" aria-controls="zero_config" rowspan="1" colspan="1" style="width: 144px; font-weight: bold; text-align: center">Hình ảnh</th>
+                            <th class="sorting" tabindex="0" aria-controls="zero_config" rowspan="1" colspan="1" style="width: 144px; font-weight: bold; text-align: center">Loại</th>
+                            <th class="sorting" tabindex="0" aria-controls="zero_config" rowspan="1" colspan="1" style="width: 204px; font-weight: bold; text-align: center">Mô tả
                             </th>
-                            <th class="sorting" tabindex="0" aria-controls="zero_config" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending" style="width: 44px;">Age
+                            <th class="sorting" tabindex="0" aria-controls="zero_config" rowspan="1" colspan="1" style="width: 44px; font-weight: bold; text-align: center">Đơn giá
                             </th>
-                            <th class="sorting" tabindex="0" aria-controls="zero_config" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 92px;">Start date
+                            <th class="sorting_asc" tabindex="0" aria-controls="zero_config" rowspan="1" colspan="1" style="width: 88px; font-weight: bold; text-align: center" aria-sort="ascending">Lượt xem</th>
+                            <th class="sorting" tabindex="0" aria-controls="zero_config" rowspan="1" colspan="1" style="width: 92px; font-weight: bold; text-align: center">Ngày tạo
                             </th>
-                            <th class="sorting_asc" tabindex="0" aria-controls="zero_config" rowspan="1" colspan="1" aria-label="Salary: activate to sort column descending" style="width: 88px;" aria-sort="ascending">Salary</th></tr>
+                            </tr>
                     </thead>
                     <tbody>
+                    <?php $count = 0; ?>
+                    <?php foreach ($list as $key => $value): ?>
+                        
+                   
+                        <tr role="row" class="odd">
+                            <td class=""><?= $value['ten_san_pham'] ?></td>
+                            <td class=""><img width="120" height="120" src="<?= base_url() ?>uploads/<?= $value['hinh'] ?>"></td>
+                            <td class=""><?= $value['ten_loai'] ?></td>
+                            <td class=""><?= $value['mo_ta_tom_tat'] ?></td>
+                            <td class=""><?= $value['don_gia'] ?></td>
+                            <td class="sorting_1"><?= $value['so_lan_xem'] ?></td>
+                            <td class="sorting_1"><?= $value['ngay_tao'] ?></td>
+                        </tr>
+                    <?php $count++; ?>
+                     <?php endforeach ?>
 
-                    <tr role="row" class="odd">
-                            <td class="">Jennifer Acosta</td>
-                            <td class="">Junior Javascript Developer</td>
-                            <td class="">Edinburgh</td>
-                            <td class="">43</td>
-                            <td class="">2013/02/01</td>
-                            <td class="sorting_1">$75,650</td>
-                        </tr><tr role="row" class="even">
-                            <td class="">Doris Wilder</td>
-                            <td class="">Sales Assistant</td>
-                            <td class="">Sidney</td>
-                            <td class="">23</td>
-                            <td class="">2010/09/20</td>
-                            <td class="sorting_1">$85,600</td>
-                        </tr><tr role="row" class="odd">
-                            <td class="">Unity Butler</td>
-                            <td class="">Marketing Designer</td>
-                            <td class="">San Francisco</td>
-                            <td class="">47</td>
-                            <td class="">2009/12/09</td>
-                            <td class="sorting_1">$85,675</td>
-                        </tr><tr role="row" class="even">
-                            <td class="">Ashton Cox</td>
-                            <td class="">Junior Technical Author</td>
-                            <td class="">San Francisco</td>
-                            <td class="">66</td>
-                            <td class="">2009/01/12</td>
-                            <td class="sorting_1">$86,000</td>
-                        </tr></tbody>
-                    <tfoot>
-                        <tr><th rowspan="1" colspan="1">Name</th><th rowspan="1" colspan="1">Position</th><th rowspan="1" colspan="1">Office</th><th rowspan="1" colspan="1">Age</th><th rowspan="1" colspan="1">Start date</th><th rowspan="1" colspan="1">Salary</th></tr>
-                    </tfoot>
+                    </tbody>
+
                 </table>
             </div>
         </div>
 
         <div class="row">
             <div class="col-sm-12 col-md-5">
-            <div class="dataTables_info" id="zero_config_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div>
+            <div class="dataTables_info" id="zero_config_info" role="status" aria-live="polite">Showing 1 to 10 of <?= $count ?> products</div>
             </div><div class="col-sm-12 col-md-7"><div class="dataTables_paginate paging_simple_numbers" id="zero_config_paginate"><ul class="pagination"><li class="paginate_button page-item previous disabled" id="zero_config_previous"><a href="#" aria-controls="zero_config" data-dt-idx="0" tabindex="0" class="page-link"><</a></li>
                 <li class="paginate_button page-item active">
                     <a href="#" aria-controls="zero_config" data-dt-idx="1" tabindex="0" class="page-link">1</a>

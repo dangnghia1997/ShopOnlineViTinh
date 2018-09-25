@@ -23,20 +23,5 @@ class Admin extends CI_Controller
 		$this->load->view('admin/v_login');
 	}
 
-	public function ControllerQuoc()
-	{
-		# code...
-		return 1;
-	}
-
-	public function Nghia()
-	{
-		echo "Nghia";
-
-		echo "Test Push";
-
-		echo "Quốc";
-
-	}
 }
 ?>
