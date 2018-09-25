@@ -1,5 +1,0 @@
-<<<<<<< HEAD
-NghiaDang
-=======
-Anh Quoc
->>>>>>> 290a0e64853cdf4b99884f46833d384a2c48b6d3
