@@ -13,16 +13,16 @@ class Product extends CI_Controller {
 		
 	}
 
-	public function addProduct()
+	public function add_product()
 	{
 		# code...
 		$data['view']='admin/product/v_addproduct';
 		$this->load->view('layouts/admin/layout',$data);
 	}
-	public function listProduct()
+	public function list_product()
 	{
 		# code...
-		$data['list']=$this->m_product->showData();
+		$data['list']=$this->m_product->show_data();
 		$data['view']='admin/product/v_listproduct';
 		$this->load->view('layouts/admin/layout',$data);
 	}

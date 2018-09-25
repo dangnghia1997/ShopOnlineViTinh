@@ -9,7 +9,7 @@ class m_product extends CI_Model {
 		parent::__construct();
 		
 	}
-	public function showData()
+	public function show_data()
 	{
 		$this->db->select('*,sp.hinh');
 		$this->db->from('san_pham as sp');
