@@ -19,7 +19,7 @@ class Product extends CI_Controller {
 		$data['view']='admin/product/v_addproduct';
 		$this->load->view('layouts/admin/layout',$data);
 	}
-	public function list_product($page)
+	public function list_product($page=1)  
 	{
 		# code...
 		$data['count']=$this->m_product->count_data();
