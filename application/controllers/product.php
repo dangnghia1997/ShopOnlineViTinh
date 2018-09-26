@@ -19,20 +19,19 @@ class Product extends CI_Controller {
 		$data['view']='admin/product/v_addproduct';
 		$this->load->view('layouts/admin/layout',$data);
 	}
-	public function list_product()
+	public function list_product($page)
 	{
 		# code...
-		$data['list']=$this->m_product->show_data();
+		$data['count']=$this->m_product->count_data();
+		$data['list']=$this->m_product->show_data($page);
 		$data['view']='admin/product/v_listproduct';
 		$this->load->view('layouts/admin/layout',$data);
 	}
 	//dung de test 
-	/*public function test()
+/*	public function test()
 	{
-		$data['list']=$this->m_product->showData();
-		echo '<pre>';
-		var_dump($data);
-		echo '</pre>';
+		$this->m_product->get_page();
+		
 	}*/
 
 }

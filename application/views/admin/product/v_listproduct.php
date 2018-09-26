@@ -28,20 +28,18 @@
                             </tr>
                     </thead>
                     <tbody>
-                    <?php $count = 0; ?>
                     <?php foreach ($list as $key => $value): ?>
                         
                    
                         <tr role="row" class="odd">
                             <td class=""><?= $value['ten_san_pham'] ?></td>
-                            <td class=""><img width="120" height="120" src="<?= base_url() ?>uploads/<?= $value['hinh'] ?>"></td>
+                            <td class=""><img width="120" height="120" src="<?= base_url() ?>assets/admin/images/products/<?= $value['hinh'] ?>"></td>
                             <td class=""><?= $value['ten_loai'] ?></td>
                             <td class=""><?= $value['mo_ta_tom_tat'] ?></td>
                             <td class=""><?= $value['don_gia'] ?></td>
                             <td class="sorting_1"><?= $value['so_lan_xem'] ?></td>
                             <td class="sorting_1"><?= $value['ngay_tao'] ?></td>
                         </tr>
-                    <?php $count++; ?>
                      <?php endforeach ?>
 
                     </tbody>
@@ -54,20 +52,18 @@
             <div class="col-sm-12 col-md-5">
             <div class="dataTables_info" id="zero_config_info" role="status" aria-live="polite">Showing 1 to 10 of <?= $count ?> products</div>
             </div><div class="col-sm-12 col-md-7"><div class="dataTables_paginate paging_simple_numbers" id="zero_config_paginate"><ul class="pagination"><li class="paginate_button page-item previous disabled" id="zero_config_previous"><a href="#" aria-controls="zero_config" data-dt-idx="0" tabindex="0" class="page-link"><</a></li>
-                <li class="paginate_button page-item active">
+                <!-- <li class="paginate_button page-item active">
                     <a href="#" aria-controls="zero_config" data-dt-idx="1" tabindex="0" class="page-link">1</a>
-                </li>
+                </li> -->
+                <?php 
+                    $num_page = $count/10;
+                    for($i = 1; $i <= $num_page; $i++) {
+                ?>
                 <li class="paginate_button page-item ">
-                    <a href="#" aria-controls="zero_config" data-dt-idx="2" tabindex="0" class="page-link">2</a>
+                    <a href="<?= base_url() ?>product/list_product/<?= $i ?>" aria-controls="zero_config" data-dt-idx="2" tabindex="0" class="page-link"><?= $i ?></a>
                 </li>
-                <li class="paginate_button page-item ">
-                    <a href="#" aria-controls="zero_config" data-dt-idx="3" tabindex="0" class="page-link">3</a>
-                </li>
-                <li class="paginate_button page-item ">
-                    <a href="#" aria-controls="zero_config" data-dt-idx="4" tabindex="0" class="page-link">4</a>
-                </li>
-                <li class="paginate_button page-item ">
-                    <a href="#" aria-controls="zero_config" data-dt-idx="5" tabindex="0" class="page-link">5</a></li><li class="paginate_button page-item next" id="zero_config_next"><a href="#" aria-controls="zero_config" data-dt-idx="7" tabindex="0" class="page-link">></a></li></ul></div></div></div></div>
+                <?php } ?>
+                <li class="paginate_button page-item next" id="zero_config_next"><a href="#" aria-controls="zero_config" data-dt-idx="7" tabindex="0" class="page-link">></a></li></ul></div></div></div></div>
             </div>
 
         </div>
