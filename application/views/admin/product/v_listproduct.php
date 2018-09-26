@@ -34,7 +34,7 @@
                    
                         <tr role="row" class="odd">
                             <td class=""><?= $value['ten_san_pham'] ?></td>
-                            <td class=""><img width="120" height="120" src="<?= base_url() ?>uploads/<?= $value['hinh'] ?>"></td>
+                            <td class=""><img width="120" height="120" src="<?= base_url() ?>assets/images/<?= $value['hinh'] ?>"></td>
                             <td class=""><?= $value['ten_loai'] ?></td>
                             <td class=""><?= $value['mo_ta_tom_tat'] ?></td>
                             <td class=""><?= $value['don_gia'] ?></td>

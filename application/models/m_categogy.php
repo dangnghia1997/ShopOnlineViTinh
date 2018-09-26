@@ -15,6 +15,17 @@ class M_categogy extends CI_Model
         }
         
             
-    }
+	}
+	
+	public function read_cate_by_parentID($id)
+	{
+		$sql = "SELECT * FROM loai_san_pham WHERE ma_loai_cha = ?";
+		$parrams=array($id);
+		$query = $this->db->query($sql,$parrams);
+		if ($query)
+		{
+			return $query->result();
+		}
+	}
 }
 ?>
