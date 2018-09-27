@@ -115,10 +115,15 @@
 <script>
 
 function getData(page) {
+  var $parentid = $('#main_categogy').val()
+  console.log($parentid);
     $.ajax({
         method: "POST",
         url: '<?php echo $this->ajax_pagination->base_url; ?>' + page,
-        data: { page: page },
+        data: { 
+                page: page,
+                parentid:$parentid
+         },
         dataType: 'text',
         success: function(data) {
             $('<?php echo $this->ajax_pagination->target; ?>').html(data);
