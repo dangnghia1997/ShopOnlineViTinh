@@ -1,7 +1,3 @@
-<?php 
-print_r($list_categogy);
-?>
-
 
 <div class="card">
   <div class="card-body">
@@ -58,19 +54,21 @@ print_r($list_categogy);
                   <th class="sorting_asc" tabindex="0" aria-controls="zero_config" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 139px;">Tên Loại</th>
                   <th class="sorting" tabindex="0" aria-controls="zero_config" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 230px;">Mô tả</th>
                   <th class="sorting" tabindex="0" aria-controls="zero_config" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 104px;">Mã Loại Cha</th>
-                  
                 </tr>
               </thead>
-              <tbody>
-               <?php 
-               
-               ?>
-                <tr role="row" class="even">
-                  <td class="sorting_1">Cedric Kelly</td>
-                  <td>Senior Javascript Developer</td>
-                  <td>Edinburgh</td>
-                  
-                </tr>
+              <tbody id='data_cate_child'>
+                  <?php
+                  foreach($list_cate as $l)
+                  {
+                  ?>
+                    <tr role="row" class="even">
+                      <td class="sorting_1"><?php echo $l->ten_loai?></td>
+                      <td><?php echo $l->mo_ta?></td>
+                      <td><?php echo $l->ma_loai_cha?></td>
+                    </tr>
+                  <?php
+                  }
+                  ?>
               </tbody>
              <!-- <tfoot>
                 <tr>
