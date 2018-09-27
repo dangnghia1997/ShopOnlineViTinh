@@ -25,9 +25,15 @@ class m_product extends CI_Model {
 		$this->db->select('*,sp.hinh');
 		$this->db->from('san_pham as sp');
 		$this->db->join('loai_san_pham as lsp', 'sp.ma_loai = lsp.ma_loai', 'left');
-		$data = $this->db->get('san_pham',10,$page*10+1);
+		$this->db->limit(10,($page-1)*10+1);
+		$data = $this->db->get();
 		$data = $data->result_array();
 		return $data;
+	}
+
+	public function get_page($page)
+	{
+		return $page;
 	}
 
 

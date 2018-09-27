@@ -25,6 +25,7 @@ class Product extends CI_Controller {
 		$data['count']=$this->m_product->count_data();
 		$data['list']=$this->m_product->show_data($page);
 		$data['view']='admin/product/v_listproduct';
+		$data['page'] = $this->m_product->get_page($page);
 		$this->load->view('layouts/admin/layout',$data);
 	}
 	//dung de test 

@@ -47,23 +47,61 @@
                 </table>
             </div>
         </div>
-
+        <?php 
+            $num_page = ceil($count/10); 
+        ?>
         <div class="row">
             <div class="col-sm-12 col-md-5">
-            <div class="dataTables_info" id="zero_config_info" role="status" aria-live="polite">Showing 1 to 10 of <?= $count ?> products</div>
-            </div><div class="col-sm-12 col-md-7"><div class="dataTables_paginate paging_simple_numbers" id="zero_config_paginate"><ul class="pagination"><li class="paginate_button page-item previous disabled" id="zero_config_previous"><a href="#" aria-controls="zero_config" data-dt-idx="0" tabindex="0" class="page-link"><</a></li>
+            <div class="dataTables_info" id="zero_config_info" role="status" aria-live="polite">Showing <?= $page ?> to <?= $num_page ?> of <?= $count ?> products</div>
+            </div><div class="col-sm-12 col-md-7"><div class="dataTables_paginate paging_simple_numbers" id="zero_config_paginate"><ul class="pagination">
+                <?php if($page>1){ ?>
+                <li class="paginate_button page-item previous" id="zero_config_previous">
+                <?php }else{ ?>
+                <li class="paginate_button page-item previous disabled" id="zero_config_previous">
+                <?php } ?>
+                    <a href="<?= base_url() ?>product/list_product/<?= $page-1 ?>" aria-controls="zero_config" data-dt-idx="0" tabindex="0" class="page-link"><</a>
+                </li>
                 <!-- <li class="paginate_button page-item active">
                     <a href="#" aria-controls="zero_config" data-dt-idx="1" tabindex="0" class="page-link">1</a>
-                </li> -->
+                </li> -->                
                 <?php 
-                    $num_page = $count/10;
-                    for($i = 1; $i <= $num_page; $i++) {
+                    $index = [];
+                    for($i = 1; $i <= 7; $i++) {
+                        if($page<5){
+                            $index[$i] = $i;
+                        }
+                        else if($page>$num_page-4){
+                            $index[$i] = $num_page-7+$i;
+                        }
+                        else{
+                            $index[$i] = $page+$i-4;
+                        }
+                    }
+
                 ?>
-                <li class="paginate_button page-item ">
-                    <a href="<?= base_url() ?>product/list_product/<?= $i ?>" aria-controls="zero_config" data-dt-idx="2" tabindex="0" class="page-link"><?= $i ?></a>
+                <?php for($i = 1; $i <= 7; $i++){ ?>
+                    <?php if ($index[$i]==$page){ ?>
+
+                <li class="paginate_button page-item active">
+
+                    <?php }else{ ?>
+
+                <li class="paginate_button page-item">
+
+                    <?php } ?>
+
+                    <a href="<?= base_url() ?>product/list_product/<?= $index[$i] ?>" aria-controls="zero_config" data-dt-idx="1" tabindex="0" class="page-link"><?= $index[$i] ?></a>
                 </li>
+
+                 <?php } ?>
+
+                <?php if($page<$num_page){ ?>
+                <li class="paginate_button page-item previous" id="zero_config_previous">
+                <?php }else{ ?>
+                <li class="paginate_button page-item previous disabled" id="zero_config_previous">
                 <?php } ?>
-                <li class="paginate_button page-item next" id="zero_config_next"><a href="#" aria-controls="zero_config" data-dt-idx="7" tabindex="0" class="page-link">></a></li></ul></div></div></div></div>
+                    <a href="<?= base_url() ?>product/list_product/<?= $page+1 ?>" aria-controls="zero_config" data-dt-idx="0" tabindex="0" class="page-link">></a>
+                </li></ul></div></div></div></div>
             </div>
 
         </div>
