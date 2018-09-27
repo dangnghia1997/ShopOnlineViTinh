@@ -88,7 +88,7 @@
             <div class="dataTables_info" id="zero_config_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div>
           </div>
           <div class="col-sm-12 col-md-7">
-            <div class="dataTables_paginate paging_simple_numbers" id="zero_config_paginate">
+            <!--<div class="dataTables_paginate paging_simple_numbers" id="zero_config_paginate">
               <ul class="pagination">
                 <li class="paginate_button page-item previous disabled" id="zero_config_previous"><a href="#" aria-controls="zero_config" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li>
                 <li class="paginate_button page-item active"><a href="#" aria-controls="zero_config" data-dt-idx="1" tabindex="0" class="page-link">1</a></li>
@@ -99,6 +99,12 @@
                 <li class="paginate_button page-item "><a href="#" aria-controls="zero_config" data-dt-idx="6" tabindex="0" class="page-link">6</a></li>
                 <li class="paginate_button page-item next" id="zero_config_next"><a href="#" aria-controls="zero_config" data-dt-idx="7" tabindex="0" class="page-link">Next</a></li>
               </ul>
+            </div>-->
+            <div id='postList'>
+                  <!--Data ajax pagination-->
+                  <?php
+                    echo $this->ajax_pagination->create_links();
+                  ?>
             </div>
           </div>
         </div>
@@ -106,5 +112,19 @@
     </div>
   </div>
 </div>
+<script>
+
+function getData(page) {
+    $.ajax({
+        method: "POST",
+        url: '<?php echo $this->ajax_pagination->base_url; ?>' + page,
+        data: { page: page },
+        dataType: 'text',
+        success: function(data) {
+            $('<?php echo $this->ajax_pagination->target; ?>').html(data);
+        }
+    });
+}
 
 
+</script>
