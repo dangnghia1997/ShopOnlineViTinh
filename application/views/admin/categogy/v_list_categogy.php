@@ -2,6 +2,7 @@
 print_r($list_categogy);
 ?>
 
+
 <div class="card">
   <div class="card-body">
     <h5 class="card-title">Danh sách loại sản phẩm</h5>
@@ -11,21 +12,23 @@ print_r($list_categogy);
           <div class="col-sm-12 col-md-12">
             <div class="dataTables_length" id="zero_config_length">
               <label>Danh mục chính
-                <select class="main_categogy" name="zero_config_length" aria-controls="zero_config" class="form-control form-control-sm">
-                <option value="-1" seleted="selected">Tất cả</option>
+                <select  id="main_categogy" name="zero_config_length" aria-controls="zero_config" class="form-control form-control-sm">
+                <option value="-1" >Tất cả</option>
                 <?php
-                                                        foreach($main_categogy as $l)
-                                                        {
-                                                        ?>
-                <option value="<?php echo $l->ma_loai?>"> <?php echo $l->ten_loai?> </option>
+                foreach($main_categogy as $l)
+                {
+                ?>
+                  <option value="<?php echo $l->ma_loai?>"> <?php echo $l->ten_loai?> </option>
                 <?php
-                                                        }
-                                                        ?>
+                }
+                ?>
                 </select>
               </label>
             </div>
           </div>
         </div>
+
+
         <div class="row">
           <div class="col-sm-12 col-md-6">
             <div class="dataTables_length" id="zero_config_length">
@@ -105,3 +108,5 @@ print_r($list_categogy);
     </div>
   </div>
 </div>
+
+
