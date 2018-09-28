@@ -85,6 +85,34 @@
     <script src="<?php echo base_url()?>assets/admin/libs/flot/jquery.flot.crosshair.js"></script>
     <script src="<?php echo base_url()?>assets/admin/libs/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
     <script src="<?php echo base_url()?>assets/admin/js/pages/chart/chart-page-init.js"></script>
+    
+    <script>
+    $(document).ready(function(){
+        function load_categogy_data(page)
+        {
+            $.ajax({
+            url: "<?php echo base_url();?>categogy/pagination/" + page,
+            method:"GET",
+            dataType:"json",
+            success: function(data)
+            {
+                $('#data_cate_child').html(data.data_cate_child);
+                $('#pagination_link').html(data.pagination_link);
+            }
+            });
+            
+        }
+
+        load_categogy_data(1); 
+
+        $(document).on("click", ".pagination li a.page-link1", function(event){
+            event.preventDefault();
+            var page = $(this).data("ci-pagination-page");
+            load_categogy_data(page);
+        });
+        
+    });
+    </script>
 
 </body>
 

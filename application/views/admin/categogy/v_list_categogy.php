@@ -57,18 +57,7 @@
                 </tr>
               </thead>
               <tbody id='data_cate_child'>
-                  <?php
-                  foreach($list_cate as $l)
-                  {
-                  ?>
-                    <tr role="row" class="even">
-                      <td class="sorting_1"><?php echo $l->ten_loai?></td>
-                      <td><?php echo $l->mo_ta?></td>
-                      <td><?php echo $l->ma_loai_cha?></td>
-                    </tr>
-                  <?php
-                  }
-                  ?>
+                  
               </tbody>
              <!-- <tfoot>
                 <tr>
@@ -88,7 +77,7 @@
             <div class="dataTables_info" id="zero_config_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div>
           </div>
           <div class="col-sm-12 col-md-7">
-            <div class="dataTables_paginate paging_simple_numbers" id="zero_config_paginate">
+            <div class="dataTables_paginate paging_simple_numbers" id="pagination_link">
               <!--<ul class="pagination">
                 <li class="paginate_button page-item previous disabled" id="zero_config_previous"><a href="#" aria-controls="zero_config" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li>
                 <li class="paginate_button page-item active"><a href="#" aria-controls="zero_config" data-dt-idx="1" tabindex="0" class="page-link">1</a></li>
@@ -99,18 +88,9 @@
                 <li class="paginate_button page-item "><a href="#" aria-controls="zero_config" data-dt-idx="6" tabindex="0" class="page-link">6</a></li>
                 <li class="paginate_button page-item next" id="zero_config_next"><a href="#" aria-controls="zero_config" data-dt-idx="7" tabindex="0" class="page-link">Next</a></li>
               </ul>-->
-              <div id='postList'>
-                  <!--Data ajax pagination-->
-                  <?php
-                    echo $links;
-                  ?>
-              </div>
-              <div class="loading" style="display: none;">
-                <div class="content">
-                  <img src="<?php echo base_url().'assets/images/loading.gif'; ?>"/>
-                </div>
-              </div>
-
+              
+               
+                
             </div>
           </div>
         </div>
@@ -120,10 +100,9 @@
 </div>
 <script>
 
-function getData(page) {
+/*function getData(page) {
   var $parentid = $('#main_categogy').val()
   
-  console.log('<?php echo $this->ajax_pagination->base_url; ?>' + page);
     $.ajax({
         method: "POST",
         url: '<?php echo $this->ajax_pagination->base_url; ?>' + page,
@@ -140,7 +119,10 @@ function getData(page) {
             $('<?php echo $this->ajax_pagination->target; ?>').html(data);
         }
     });
-}
+}*/
+
+
+
 
 
 </script>
