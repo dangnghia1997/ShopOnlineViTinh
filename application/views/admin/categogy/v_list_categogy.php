@@ -88,8 +88,8 @@
             <div class="dataTables_info" id="zero_config_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div>
           </div>
           <div class="col-sm-12 col-md-7">
-            <!--<div class="dataTables_paginate paging_simple_numbers" id="zero_config_paginate">
-              <ul class="pagination">
+            <div class="dataTables_paginate paging_simple_numbers" id="zero_config_paginate">
+              <!--<ul class="pagination">
                 <li class="paginate_button page-item previous disabled" id="zero_config_previous"><a href="#" aria-controls="zero_config" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li>
                 <li class="paginate_button page-item active"><a href="#" aria-controls="zero_config" data-dt-idx="1" tabindex="0" class="page-link">1</a></li>
                 <li class="paginate_button page-item "><a href="#" aria-controls="zero_config" data-dt-idx="2" tabindex="0" class="page-link">2</a></li>
@@ -98,13 +98,19 @@
                 <li class="paginate_button page-item "><a href="#" aria-controls="zero_config" data-dt-idx="5" tabindex="0" class="page-link">5</a></li>
                 <li class="paginate_button page-item "><a href="#" aria-controls="zero_config" data-dt-idx="6" tabindex="0" class="page-link">6</a></li>
                 <li class="paginate_button page-item next" id="zero_config_next"><a href="#" aria-controls="zero_config" data-dt-idx="7" tabindex="0" class="page-link">Next</a></li>
-              </ul>
-            </div>-->
-            <div id='postList'>
+              </ul>-->
+              <div id='postList'>
                   <!--Data ajax pagination-->
                   <?php
-                    echo $this->ajax_pagination->create_links();
+                    echo $links;
                   ?>
+              </div>
+              <div class="loading" style="display: none;">
+                <div class="content">
+                  <img src="<?php echo base_url().'assets/images/loading.gif'; ?>"/>
+                </div>
+              </div>
+
             </div>
           </div>
         </div>
@@ -116,7 +122,8 @@
 
 function getData(page) {
   var $parentid = $('#main_categogy').val()
-  console.log($parentid);
+  
+  console.log('<?php echo $this->ajax_pagination->base_url; ?>' + page);
     $.ajax({
         method: "POST",
         url: '<?php echo $this->ajax_pagination->base_url; ?>' + page,
@@ -124,8 +131,12 @@ function getData(page) {
                 page: page,
                 parentid:$parentid
          },
+        beforeSend: function(){
+                    $('<?php echo $this->ajax_pagination->loading; ?>').show();
+        },
         dataType: 'text',
         success: function(data) {
+            $('<?php echo $this->ajax_pagination->loading; ?>').hide();
             $('<?php echo $this->ajax_pagination->target; ?>').html(data);
         }
     });

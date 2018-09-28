@@ -15,17 +15,17 @@ class Ajax_pagination{
     var $base_url        = ''; // The page we are linking to
     var $total_rows      = ''; // Total number of items (database results)
     var $per_page        = 10; // Max number of items you want shown per page
-    var $num_links       =  2; // Number of "digit" links to show before/after the currently viewed page
+    var $num_links       =  4; // Number of "digit" links to show before/after the currently viewed page
     var $cur_page        =  0; // The current page being viewed
     var $first_link      = 'First';
-    var $next_link       = '&#187;';
+    var $next_link       = 'NEXT';
     var $prev_link       = '&#171;';
     var $last_link       = 'Last';
     var $uri_segment     = 3;
     var $full_tag_open   = '<div class="pagination">';
     var $full_tag_close  = '</div>';
-    var $first_tag_open  = '';
-    var $first_tag_close = '&nbsp;';
+    var $first_tag_open  = '<li>';
+    var $first_tag_close = '</li>';
     var $last_tag_open   = '&nbsp;';
     var $last_tag_close  = '';
     var $cur_tag_open    = '&nbsp;<b>';
@@ -119,7 +119,7 @@ class Ajax_pagination{
         }
 
         $uri_page_number = $this->cur_page;
-        $this->cur_page = floor(($this->cur_page/$this->per_page) + 1);
+        $this->cur_page =(int) floor(($this->cur_page/$this->per_page)+ 1) ;
 
         // Calculate the start and end numbers. These determine
         // which number to start and end the digit links with
@@ -140,8 +140,9 @@ class Ajax_pagination{
             if( ( $curr_offset + $this->per_page ) < ( $this->total_rows -1 ) )
             $info .= $curr_offset + $this->per_page;
             else
-            $info .= $this->total_rows;
-
+            {
+                $info .= $this->total_rows;
+            }
             $info .= ' of ' . $this->total_rows . ' | ';
             $output .= $info;
         }
@@ -149,7 +150,7 @@ class Ajax_pagination{
         // Render the "First" link
         if  ($this->cur_page > $this->num_links){
             $output .= $this->first_tag_open 
-                    . $this->getAJAXlink( '' , $this->first_link)
+                    . $this->getAJAXlink('', $this->first_link)
                     . $this->first_tag_close;
         }
 
@@ -164,18 +165,26 @@ class Ajax_pagination{
 
         // Write the digit links
         for ($loop = $start -1; $loop <= $end; $loop++){
-            $i = ($loop * $this->per_page) - $this->per_page;    
-            if ($i >= 0){
-                if ($this->cur_page == $loop){
-                    $output .= $this->cur_tag_open.$loop.$this->cur_tag_close; // Current page
-                }else{
-                    $n = ($i == 0) ? '' : $i;
-                    $output .= $this->num_tag_open
-                        . $this->getAJAXlink( $n, $loop )
-                        . $this->num_tag_close;
-                }
+             $i = ($loop * $this->per_page) - $this->per_page;    
+           if ($i >= 0)
+             {
+                 if ($this->cur_page == $loop)
+                 {
+                     $output .= $this->cur_tag_open.$loop.$this->cur_tag_close; // Current page
+                 }
+                 else
+                 {
+                     $n = ($i == 0) ? '' : $i;
+                     $output .= $this->num_tag_open
+                         . $this->getAJAXlink( $n, $loop )
+                         . $this->num_tag_close;
+                 }
             }
         }
+
+        
+
+
 
         // Render the "next" link
         if ($this->cur_page < $num_pages){

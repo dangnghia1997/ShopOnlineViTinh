@@ -14,14 +14,19 @@ class Categogy extends CI_Controller
 		$limit = 4;
 		$total= count($this->m_categogy->read_all_cate());
 
+
 		//pagination configuation
+			//custumizing renderpage
+		
+		
 		$config['target']   = '#data_cate_child';
-		$config['base_url'] = base_url(). 'categogy/ajax_pagination_data';
+		$config['base_url'] = base_url(). 'categogy/ajax_pagination_data/';
 		$config['total_rows']= $total;
 		$config['per_page']= $limit;
+		//$config=$this->customizing_render_page($config);
+
 		$this->ajax_pagination->initialize($config);
-
-
+		$data['links'] = $this->ajax_pagination->create_links();
 		$main_cate=$this->m_categogy->read_cate_by_parentID(0);		
 		$data['main_categogy']=$main_cate;	
 		$data['list_cate'] = $this->m_categogy->read_all_cate($limit,0);
@@ -55,7 +60,7 @@ class Categogy extends CI_Controller
 		}
 		else
 		{
-			$list_cate_child = $this->m_categogy->read_all_cate();
+			$list_cate_child = $this->m_categogy->read_all_cate($limit,0);
 			$total=$list_cate_child;
 		}
 
@@ -117,6 +122,29 @@ class Categogy extends CI_Controller
                   <td>'.$l->ma_loai_cha.'</td>
 				</tr>';
 		}
+	}
+
+	public function customizing_render_page($config = array())
+	{
+		$config['full_tag_open'] = '<ul class="pagination">';
+		$config['full_tag_close'] = '</ul>';
+		
+		$config['prev_link']= 'Trước';
+		$config['prev_tag_open'] = '<li class="paginate_button page-item previous disabled" id="zero_config_previous">';
+		$config['prev_tag_close'] = '</li>';
+
+		$config['next_link']= 'Sau';
+		$config['next_tag_open']='<li class="paginate_button page-item next" id="zero_config_next">';
+		$config['next_tag_close']='</li>';
+
+		$config['num_tag_open']='<li class="paginate_button page-item ">';
+		$config['num_tag_close']='</li>';
+
+		$config['num_tag_close']='<li class="paginate_button page-item active">';
+		$config['num_tag_close']='</li>';
+		
+		return $config;
+		
 	}
 
 	
