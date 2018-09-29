@@ -102,7 +102,12 @@
             {
                 $('#data_cate_child').html(data.data_cate_child);
 				$('#pagination_link').html(data.pagination_link);
-				
+				$('#total').html(data.total);
+				var $from = ((parseInt(page) - 1) * parseInt($limit)) + 1;
+				$('#from').html($from);
+				var $to =($from + parseInt($limit) < parseInt(data.total)  ? $from + (parseInt($limit) -1)
+					 : parseInt(data.total)) ;
+				$('#to').html($to);
 			},
 			error:function(e)
 			{

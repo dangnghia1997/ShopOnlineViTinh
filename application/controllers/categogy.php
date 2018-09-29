@@ -81,7 +81,8 @@ class Categogy extends CI_Controller
 
 		$output = array(
 			'pagination_link' => $this->pagination->create_links(),
-			'data_cate_child' => $data_cate_child
+			'data_cate_child' => $data_cate_child,
+			'total' => $total
 		);
 
 		echo json_encode($output);
