@@ -29,11 +29,9 @@
           <div class="col-sm-12 col-md-6">
             <div class="dataTables_length" id="zero_config_length">
               <label>Show
-                <select name="zero_config_length" aria-controls="zero_config" class="form-control form-control-sm">
+                <select id ="limit" name="zero_config_length" aria-controls="zero_config" class="form-control form-control-sm">
+                  <option value="5">5</option>
                   <option value="10">10</option>
-                  <option value="25">25</option>
-                  <option value="50">50</option>
-                  <option value="100">100</option>
                 </select>
                 entries </label>
             </div>
@@ -98,31 +96,3 @@
     </div>
   </div>
 </div>
-<script>
-
-/*function getData(page) {
-  var $parentid = $('#main_categogy').val()
-  
-    $.ajax({
-        method: "POST",
-        url: '<?php echo $this->ajax_pagination->base_url; ?>' + page,
-        data: { 
-                page: page,
-                parentid:$parentid
-         },
-        beforeSend: function(){
-                    $('<?php echo $this->ajax_pagination->loading; ?>').show();
-        },
-        dataType: 'text',
-        success: function(data) {
-            $('<?php echo $this->ajax_pagination->loading; ?>').hide();
-            $('<?php echo $this->ajax_pagination->target; ?>').html(data);
-        }
-    });
-}*/
-
-
-
-
-
-</script>

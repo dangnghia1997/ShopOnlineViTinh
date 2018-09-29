@@ -55,6 +55,28 @@ class M_categogy extends CI_Model
         }
 
         return $output;
-    }
+	}
+	
+	public function ajax_read_cate_by_parentID($id,$limit,$start)
+	{
+		$output ='';
+		$sql = "SELECT * FROM loai_san_pham WHERE ma_loai_cha = ?";
+		$sql.=" LIMIT $start,$limit";
+		$parrams=array($id);
+		$query = $this->db->query($sql,$parrams);
+		$result = $query->result();
+
+		foreach($result as $l)
+        {
+            $output.='<tr role="row" class="even">';
+            $output.='<td class="sorting_1">'.$l->ten_loai.'</td>';
+            $output.='<td>'.$l->mo_ta.'</td>';
+            $output.='<td>'.$l->ma_loai_cha.'</td>';
+            $output.='</tr>';
+        }
+
+		return $output;
+		
+	}
 }
 ?>

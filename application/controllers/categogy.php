@@ -21,10 +21,30 @@ class Categogy extends CI_Controller
 
 	public function pagination()
 	{
+		
+		$id_parent ='';
+		if( $this->input->post('id_parent') !== NULL)
+		{
+			$id_parent =$this->input->post('id_parent');
+		}
+
+		$limit = $this->input->post('limit');
+		
+
+		if($id_parent == -1)
+		{
+			$total = count($this->m_categogy->read_all_cate());
+		}
+		else
+		{
+			$total = count($this->m_categogy->read_cate_by_parentID($id_parent));
+		}
+
+		//config pagination render
 		$config=array();
 		$config['base_url']= '';
-		$config['total_rows'] = count($this->m_categogy->read_all_cate());
-		$config['per_page'] = 3;
+		$config['total_rows'] = $total;
+		$config['per_page'] = $limit;
 		$config['use_page_numbers'] =TRUE;
 		$config['full_tag_open']='<ul class="pagination">';
 		$config['full_tag_close']='</ul>';
@@ -45,13 +65,23 @@ class Categogy extends CI_Controller
 		$config['num_tag_open']='<li class="paginate_button page-item ">';
 		$config['num_tag_close']='</li>';
 		$config['_attributes']='class="page-link1"';
-		$config['num_links']=3;
+		$config['num_links']=2;
 		$this->pagination->initialize($config);
 		$page = $this->uri->segment(3);
 		$start=($page-1) * $config['per_page'];
+
+		if($id_parent == -1)
+		{
+			$data_cate_child = $this->m_categogy->ajax_read_all_cate($config['per_page'],$start);
+		}
+		else
+		{
+			$data_cate_child = $this->m_categogy->ajax_read_cate_by_parentID($id_parent,$config['per_page'],$start);
+		}
+
 		$output = array(
 			'pagination_link' => $this->pagination->create_links(),
-			'data_cate_child' => $this->m_categogy->ajax_read_all_cate($config['per_page'],$start)
+			'data_cate_child' => $data_cate_child
 		);
 
 		echo json_encode($output);
