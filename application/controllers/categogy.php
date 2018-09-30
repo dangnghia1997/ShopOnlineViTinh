@@ -88,6 +88,22 @@ class Categogy extends CI_Controller
 		echo json_encode($output);
 	}
 
+	public function add_categogy()
+	{
+		//Models
+
+
+
+		//Views
+		$data['view']='admin/categogy/v_add_categogy';
+		$this->load->view('layouts/admin/layout',$data);
+	}
+
+	public function delete_categogy()
+	{
+		
+	}
+
 
 
 	

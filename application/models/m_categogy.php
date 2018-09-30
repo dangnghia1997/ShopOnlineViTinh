@@ -78,5 +78,29 @@ class M_categogy extends CI_Model
 		return $output;
 		
 	}
+		/*
+		`ma_loai`, `ten_loai`, `mo_ta`, `ma_loai_cha`, `hinh`
+		*/
+	public function add_categogy($ten_loai,$mo_ta,$ma_loai_cha,$hinh)
+	{
+		$sql = "INSERT INTO loai_san_pham ";
+		$sql.= "VALUES(?,?,?,?,?)";
+
+		$parrams = array(NULL,$ten_loai,$mo_ta,$ma_loai_cha,$hinh);
+		$query = $this->db->query($sql,$parrams);
+		
+		if($query)
+		{
+			return $this->db->insert_id();
+		}
+	}
+
+	public function delete_categogy($id)
+	{
+		$sql = "DELETE FROM loai_san_pham WHERE ma_loai = ?";
+		$query = $this->db->query($sql,array($id));
+		return $query;
+		
+	}
 }
 ?>
