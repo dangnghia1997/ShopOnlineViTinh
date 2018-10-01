@@ -21,14 +21,58 @@ class Product extends CI_Controller {
 		$this->load->view('layouts/admin/layout',$data);
 
 	}
-	public function list_product($page=1)  
+	public function list_product()  
 	{
-		# code...
-		$data['count']=$this->m_product->count_data();
-		$data['list']=$this->m_product->show_data($page);
+
 		$data['view']='admin/product/v_listproduct';
-		$data['page'] = $this->m_product->get_page($page);
 		$this->load->view('layouts/admin/layout',$data);
+		
+	}
+
+	public function ajax_pagination()
+	{
+		$this->load->library('pagination');
+		$page = $this->uri->segment(3);
+		$config['base_url'] = base_url().'product/list_product';
+
+		$config['total_rows'] = $this->m_product->count_data();//tong san pham
+		$config['per_page'] = 10;
+		$config['num_links'] = 3;
+		$config['uri_segment'] = 3;
+		$config['use_page_numbers'] =TRUE;
+
+		//config giao dien
+		$config['full_tag_open']='<ul class="pagination" id="ul_tag">';
+		$config['full_tag_close']='</ul>';
+		$config['first_link']='Đầu';
+		$config['first_tag_open']='<li>';
+		$config['first_tag_close']='</li>';
+		$config['last_link']='Cuối';
+		$config['last_tag_open']='<li>';
+		$config['last_tag_close']='</li>';
+		$config['next_link']='Sau';
+		$config['next_tag_open']='<li class="paginate_button page-item next">';
+		$config['next_tag_close']='</li>';
+		$config['prev_link']='Trước';
+		$config['prev_tag_open']='<li class="paginate_button page-item previous">';
+		$config['prev_tag_close']='</li>';
+		$config['cur_tag_open']='<li class="paginate_button page-item active"><a class="page-link">';
+		$config['cur_tag_close']='</a></li>';
+		$config['num_tag_open']='<li class="paginate_button page-item ">';
+		$config['num_tag_close']='</li>';
+		$config['_attributes']='class="page-link"';
+
+		$this->pagination->initialize($config);
+
+		$offset = ($page-1)*$config['per_page'];
+		$data = $this->m_product->show_data($config['per_page'],$offset);
+
+		$ajax_send = [
+		    'pagination' => $this->pagination->create_links(),
+		    'htmlString' => $data['htmlString']
+		];
+
+		echo(json_encode($ajax_send));
 	}
 
 	public function post_from_add_product()

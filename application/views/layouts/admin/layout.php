@@ -85,65 +85,7 @@
     <script src="<?php echo base_url()?>assets/admin/libs/flot/jquery.flot.crosshair.js"></script>
     <script src="<?php echo base_url()?>assets/admin/libs/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
     <script src="<?php echo base_url()?>assets/admin/js/pages/chart/chart-page-init.js"></script>
-    
-    <script>
-	function load_categogy_data(page,$id_parent,$limit)
-        {
-			//console.log($('#limit').val());
-            $.ajax({
-            url: "<?php echo base_url();?>categogy/pagination/" + page,
-            method:"POST",
-			dataType:"json",
-			data:{
-				id_parent 	: $id_parent,
-				limit		: $limit
-			},
-            success: function(data)
-            {
-                $('#data_cate_child').html(data.data_cate_child);
-				$('#pagination_link').html(data.pagination_link);
-				$('#total').html(data.total);
-				var $from = ((parseInt(page) - 1) * parseInt($limit)) + 1;
-				$('#from').html($from);
-				var $to =($from + parseInt($limit) < parseInt(data.total)  ? $from + (parseInt($limit) -1)
-					 : parseInt(data.total)) ;
-				$('#to').html($to);
-			},
-			error:function(e)
-			{
-				console.log('Loi');
-			}
-            });
-            
-        }
-    $(document).ready(function(){
-        
-
-        load_categogy_data(1,-1,5); 
-
-        $(document).on("click", ".pagination li a.page-link1", function(event){
-            event.preventDefault();
-			var page = $(this).data("ci-pagination-page");
-			var $id_parent = $('#main_categogy').val();
-			var $limit = $('#limit').val();
-            load_categogy_data(page,$id_parent,$limit);
-        });
-
-		$('#main_categogy').change(function(){
-			//console.log(" loai : "+ $(this).val());
-			var $limit = $('#limit').val();
-			$id_parent = $(this).val();
-			load_categogy_data(1,$id_parent,$limit);
-		});
-
-		$('#limit').change(function(){
-			$limit = $(this).val();
-			$id_parent = $('#main_categogy').val();
-			load_categogy_data(1,$id_parent,$limit);
-		});
-        
-    });
-    </script>
+    <script src="<?php echo base_url()?>assets/admin/js/ajax_pagination.js"></script>
 
 </body>
 

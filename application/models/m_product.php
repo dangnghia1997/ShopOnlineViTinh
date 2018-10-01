@@ -19,17 +19,35 @@ class m_product extends CI_Model {
 		return $size;
 	}
 
-	public function show_data($page)
+	public function show_data($limit, $offset)
 	{
 		//$this->db->get('Table', limit, offset);
 		$this->db->select('*,sp.hinh');
 		$this->db->from('san_pham as sp');
 		$this->db->join('loai_san_pham as lsp', 'sp.ma_loai = lsp.ma_loai', 'left');
-		$this->db->limit(10,($page-1)*10);
+		$this->db->limit($limit, $offset);
 		$this->db->order_by('ma_san_pham', 'desc');
-		$data = $this->db->get();
-		$data = $data->result_array();
+		$result = $this->db->get();
+		$result = $result->result_array();
+		
+		//show_data ajax
+		$htmlString = '';
+		foreach ($result as $value) {
+			$htmlString.='<tr role="row" class="odd"><td class="">'.$value['ten_san_pham'].'</td>';
+            $htmlString.='<td class=""><img width="120" height="120" src="'.base_url().'assets/images/'.$value['hinh'].'"></td>';
+            $htmlString.='<td class="">'.$value['ten_loai'].'</td><td class="" width="250px">'.$value['mo_ta_tom_tat'].'</td>';
+            $htmlString.='<td class="">'.$value['don_gia'].'</td><td class="sorting_1">'.$value['so_lan_xem'].'</td>';
+            $htmlString.='<td class="sorting_1">'.$value['ngay_tao'].'</td>';
+            $htmlString.='<td class="" width="50px"><a href="#"><i class="mdi mdi-lead-pencil" style="color: #3498db; font-size: 20px"></i></a></td><td class="" width="50px"><a href="#"><i class="mdi mdi-delete" style="color: #e74c3c; font-size: 20px"></i></a></td></tr>';
+		}
+
+		$data = [
+		    'result' => $result,
+		    'htmlString' => $htmlString 
+		];
+
 		return $data;
+
 	}
 
 	public function get_page($page)
