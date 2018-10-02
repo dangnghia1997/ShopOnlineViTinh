@@ -1,4 +1,8 @@
-     <form action="../product/post_from_add_product" method="post" enctype="multipart/form-data">
+    <style type="text/css">
+        span.error p{width: auto; padding: 0 0 0 120px; color: red; font-size: 90%; margin-left:270px; margin-bottom: -5px;margin-top: 10px;}
+        .row.hidden {display: block;}
+    </style>
+     <form action="../product/add_product" method="post" enctype="multipart/form-data">
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">Thêm sản phẩm</h5>
@@ -8,40 +12,51 @@
                         <span>Tên</span>
                     </div>
                     <div class="col-lg-8 col-md-12">
-                        <input type="text" data-toggle="tooltip" class="form-control" id="validationDefault05" placeholder="Nhập tên sản phẩm" required name="ten_san_pham">
+                        <input type="text" data-toggle="tooltip" class="form-control" id="validationDefault05" placeholder="Nhập tên sản phẩm" name="ten_san_pham" value="">
+                        
                     </div>
+                    <span class="error"><?php echo form_error('ten_san_pham'); ?></span>
+                    
                 </div>
                 <div class="form-group row mb-3 align-items-center">
                     <label class="col-lg-3 col-md-12 text-right">Hình ảnh</label>
                     <div class="col-lg-8 col-md-12">
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="validatedCustomFile" required="" name="hinh">
+                            <input type="file" class="custom-file-input" id="validatedCustomFile" name="hinh">
                             <label class="custom-file-label" for="validatedCustomFile">Chọn hình ảnh...</label>
                             <div class="invalid-feedback">Example invalid custom file feedback</div>
                         </div>
                     </div>
+                    <span class="error"><?php echo form_error('hinh'); ?></span>
                 </div>
 
                 <div class="row mb-3 align-items-center">
                     <div class="col-lg-3 col-md-12 text-right">
-                        <span>Loại sản phẩm</span>
+                        <span>Danh mục</span>
                     </div>
                     <div class="col-lg-8 col-md-12">
-                        <select class="select2 form-control custom-select select2-hidden-accessible form-control" name="ma_loai">
-                            <?php foreach ($list as $key => $value): ?>
-
-                            <optgroup label="<?= $value['ten_loai'] ?>">
-
-                                <?php foreach ($value['child'] as $key1 => $value1): ?>
-                                    <option value="<?= $value1['ma_loai'] ?>"><?= $value1['ten_loai'] ?></option>
-                                <?php endforeach ?>
-                                
-                            </optgroup>
-                                
+                        <select class="select2 form-control custom-select select2-hidden-accessible form-control" id="parent_cate">
+                            <option disabled selected>---Chọn danh mục sản phẩm---</option>
+                            <?php foreach ($list as $value): ?>
+                                <option value="<?= $value['ma_loai'] ?>"><?= $value['ten_loai'] ?></option>
                             <?php endforeach ?>
                             
                         </select>
                     </div>
+                </div>
+                
+                <div class="row mb-3 align-items-center hidden" id="row_child_cate">
+                   <!-- <div class="col-lg-3 col-md-12 text-right">
+                       <span>Loại sản phẩm</span>
+                   </div>
+                   <div class="col-lg-8 col-md-12">
+                       <select class="select2 form-control custom-select select2-hidden-accessible form-control" name="ma_loai" id="child_cate">
+                           <option disabled selected>---Chọn loại sản phẩm---</option>
+                           <option>A</option>
+                           <option>B</option>
+                           
+                       </select>
+                   </div> -->
                 </div>
 
                 <div class="row mb-3 align-items-center">
@@ -56,6 +71,7 @@
                             </div>
                         </div>
                     </div>
+                     <span class="error"><?php echo form_error('don_gia'); ?></span>
                 </div>
 
                 <div class="row mb-3 align-items-center">
@@ -77,3 +93,4 @@
         </div> 
 
    </form>
+

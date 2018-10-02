@@ -86,6 +86,7 @@
     <script src="<?php echo base_url()?>assets/admin/libs/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
     <script src="<?php echo base_url()?>assets/admin/js/pages/chart/chart-page-init.js"></script>
     <script src="<?php echo base_url()?>assets/admin/js/ajax_pagination.js"></script>
+    <script src="<?php echo base_url()?>assets/admin/js/ajax_select_category.js"></script>
 
 </body>
 

@@ -16,9 +16,29 @@ class Product extends CI_Controller {
 	public function add_product()
 	{
 		# code...
-		$data['view']='admin/product/v_addproduct';
-		$data['list'] = $this->m_product->get_cate_product();
-		$this->load->view('layouts/admin/layout',$data);
+		$this->load->helper(array('form','url'));
+		$this->load->library('form_validation');
+
+		//Đặt lời nhắn bằng tiếng việt cho lỗi
+		$this->form_validation->set_message('min_length', '{field} không được nhỏ hơn {param} ký tự.');
+		$this->form_validation->set_message('required', 'Bạn chưa nhập {field}.');
+		$this->form_validation->set_message('is_natural', '{field} phải là số.');
+
+		//Đặt luật cho từng field
+		$this->form_validation->set_rules('ten_san_pham', 'Tên sản phẩm', 'required|min_length[5]');
+		$this->form_validation->set_rules('don_gia', 'Đơn Giá', 'required|is_natural');
+		/*if(isset($_FILES['hinh']['name'])){
+			$this->form_validation->set_rules('hinh', 'Hình ảnh', 'required', array('required' => 'Chưa chọn hình ảnh để upload'));
+		}*/
+
+		if($this->form_validation->run()== False){
+			$data['view']='admin/product/v_addproduct';
+			$data['list'] = $this->m_product->get_cate_product(0);
+			$this->load->view('layouts/admin/layout',$data);
+		}
+		else{
+			$this->post_from_add_product();
+		}
 
 	}
 	public function list_product()  
@@ -120,8 +140,23 @@ class Product extends CI_Controller {
 		$hinh = basename( $_FILES["hinh"]["name"]);
 		$ngay_tao = date("Y/m/d");
 		if($this->m_product->insert_product($ten_san_pham,$ma_loai,$mo_ta_tom_tat,$don_gia,$hinh,$ngay_tao)){
-			
+			$this->load->view('admin/product/success_add');
 		}
+	}
+
+	public function ajax_select_category($idparent)
+	{
+		$result = $this->m_product->get_cate_product($idparent);
+		$htmlString ='';
+		$htmlString.='<div class="col-lg-3 col-md-12 text-right">';
+		$htmlString.='<span>Loại sản phẩm</span></div><div class="col-lg-8 col-md-12">';
+        $htmlString.='<select class="select2 form-control custom-select select2-hidden-accessible form-control" name="ma_loai" id="child_cate">';
+        $htmlString.='<option disabled selected>---Chọn loại sản phẩm---</option>';                           
+		foreach ($result as $value) {
+			$htmlString.='<option value="'.$value['ma_loai'].'">'.$value['ten_loai'].'</option>';
+		}
+		$htmlString.='</select></div>';
+		echo $htmlString;
 	}
 	//dung de test 
 	/*public function test()

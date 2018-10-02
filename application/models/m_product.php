@@ -55,23 +55,15 @@ class m_product extends CI_Model {
 		return $page;
 	}
 
-	public function get_cate_product()
+	public function get_cate_product($id)
 	{
 
 		$cate_array = [];
 		$this->db->select('*');
 		$this->db->from('loai_san_pham');
-		$this->db->where('ma_loai_cha', 0);
+		$this->db->where('ma_loai_cha', $id);
 		$cate_array = $this->db->get();
 		$cate_array = $cate_array->result_array();
-
-		foreach ($cate_array as $key=>$value) {
-			$this->db->select('*');
-			$this->db->from('loai_san_pham');
-			$this->db->where('ma_loai_cha', $cate_array[$key]['ma_loai']);
-			$cate_array[$key]['child'] =  $this->db->get();
-			$cate_array[$key]['child'] = $cate_array[$key]['child']->result_array();
-		}
 
 		return $cate_array;
 	}
