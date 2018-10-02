@@ -5,7 +5,7 @@ class Categogy extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->library('pagination');
-		
+		$this->load->library('form_validation');
 		$this->load->model('m_categogy');
 	}
 
@@ -91,13 +91,25 @@ class Categogy extends CI_Controller
 	public function add_categogy()
 	{
 		//Models
+		$data['list_parent_cate'] = $this->m_categogy->read_cate_by_parentID(0);
 
-
-
-		//Views
-		$data['view']='admin/categogy/v_add_categogy';
-		$this->load->view('layouts/admin/layout',$data);
+		//form_Validation
+		$this->form_validation->set_rules('ten_loai','Tên Loại','required');
+		if($this->form_validation->run() == FALSE)
+		{
+			//Views
+			$data['view']='admin/categogy/v_add_categogy';
+			$this->load->view('layouts/admin/layout',$data);
+		}
+		else
+		{
+			echo "Thành công!";
+		}
+		
+		
 	}
+
+	
 
 	public function delete_categogy()
 	{
