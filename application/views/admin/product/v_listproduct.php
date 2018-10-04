@@ -1,3 +1,4 @@
+
     <div class="card">
         <div class="card-body">
             <h3 class="card-title">Danh sách sản phẩm</h3>
@@ -45,37 +46,17 @@
            </div> -->
             <div class="col-sm-12 col-md-7">
                 <div class="dataTables_paginate paging_simple_numbers" id="zero_config_paginate">
-
-            <!-- <ul class="pagination">
-                <li class="paginate_button page-item previous" id="zero_config_previous">
-                    <a href="" aria-controls="zero_config" data-dt-idx="0" tabindex="0" class="page-link"><<</a>
-                </li>
-                <li class="paginate_button page-item previous" id="zero_config_previous">
-            
-                    <a href="" aria-controls="zero_config" data-dt-idx="0" tabindex="0" class="page-link"><</a>
-                </li>
-                <li class="paginate_button page-item active">
-                    <a href="#" aria-controls="zero_config" data-dt-idx="1" tabindex="0" class="page-link">1</a>
-                </li>                
-            
-                <li class="paginate_button page-item">
-            
-                    <a href="" aria-controls="zero_config" data-dt-idx="1" tabindex="0" class="page-link"><?= $index[$i] ?></a>
-                </li>
-            
-                <li class="paginate_button page-item previous" id="zero_config_previous">
-                    <a href="" aria-controls="zero_config" data-dt-idx="0" tabindex="0" class="page-link">></a>
-                </li>
-                <li class="paginate_button page-item previous" id="zero_config_previous">
-                    <a href="" aria-controls="zero_config" data-dt-idx="0" tabindex="0" class="page-link">>></a>
-                </li>
-            </ul> -->
-                
+                  <!--   ajax pagination -->
                 </div>
             </div>
             </div></div>
 
             </div>
 
+            </div>
         </div>
     </div>
+    <?php include('v_editproduct_ajax.php') ?>
+
+
+

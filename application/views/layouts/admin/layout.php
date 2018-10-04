@@ -4,6 +4,12 @@
 <?php $this->load->view('layouts/admin/head')?>
 
 <body>
+    <?php
+        if(isset($edit_product))
+        {
+            $this->load->view($edit_product);
+        }
+    ?>
     <!-- ============================================================== -->
     <!-- Preloader - style you can find in spinners.css -->
     <!-- ============================================================== -->
@@ -87,7 +93,7 @@
     <script src="<?php echo base_url()?>assets/admin/js/pages/chart/chart-page-init.js"></script>
     <script src="<?php echo base_url()?>assets/admin/js/ajax_pagination.js"></script>
     <script src="<?php echo base_url()?>assets/admin/js/ajax_select_category.js"></script>
-
+    <script src="<?php echo base_url()?>assets/admin/js/ajax_edit_product.js"></script>
 </body>
 
 </html>
