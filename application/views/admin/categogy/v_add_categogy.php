@@ -6,7 +6,7 @@
                                     <div class="form-group row">
                                         <label for="fname" class="col-sm-3 text-right control-label col-form-label">Tên loại </label>
                                         <div class="col-sm-9">
-                                            <input type="text" name="ten_loai" class="form-control" id="fname" placeholder="First Name Here">
+                                            <input type="text" name="ten_loai" value="<?php echo set_value('ten_loai')?>" class="form-control" id="fname" placeholder="Tên loại .. " required>
                                         </div>
                                     </div>
                                     <div class="row mb-3 align-items-center">
@@ -14,7 +14,7 @@
 											<span>Thuộc</span>
 										</div>
 										<div class="col-lg-8 col-md-12">
-											<select class="select2 form-control custom-select select2-hidden-accessible form-control" name="ma_loai">
+											<select class="select2 form-control custom-select select2-hidden-accessible form-control" name="ma_loai_cha">
 												<option value="-1">----Chọn----</option>
 											<?php
 											foreach($list_parent_cate as $l)
@@ -33,7 +33,7 @@
 										<label class="col-sm-3 text-right control-label col-form-label">Hình ảnh</label>
 										<div class="col-md-9">
 											<div class="custom-file">
-												<input type="file" class="custom-file-input" id="validatedCustomFile" required="">
+												<input type="file" name="hinh_anh" value="<?php echo set_value('hinh_anh')?>" class="custom-file-input" id="validatedCustomFile" required="">
 												<label class="custom-file-label" for="validatedCustomFile">Chọn ảnh ...</label>
 												<div class="invalid-feedback">Example invalid custom file feedback</div>
 											</div>
@@ -42,7 +42,7 @@
                                     <div class="form-group row">
                                         <label for="cono1" class="col-sm-3 text-right control-label col-form-label">Mô tả </label>
                                         <div class="col-sm-9">
-                                            <textarea class="form-control"></textarea>
+                                            <textarea class="form-control" name = "mo_ta_them_loai" ></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -53,4 +53,5 @@
                                     </div>
                                 </div>
                             </form>
+					
                         </div>

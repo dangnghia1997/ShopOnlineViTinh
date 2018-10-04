@@ -27,4 +27,6 @@ class Welcome extends CI_Controller {
 	{
 		echo 1;
 	}
+
 }
+

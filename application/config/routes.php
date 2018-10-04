@@ -52,3 +52,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'welcome';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+
+$route['loai-san-pham'] = 'categogy';
+$route['loai-san-pham/them-loai-san-pham'] = 'categogy/add_categogy';

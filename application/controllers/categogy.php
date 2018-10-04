@@ -6,6 +6,7 @@ class Categogy extends CI_Controller
 		parent::__construct();
 		$this->load->library('pagination');
 		$this->load->library('form_validation');
+		$this->load->library('upload');
 		$this->load->model('m_categogy');
 	}
 
@@ -95,6 +96,12 @@ class Categogy extends CI_Controller
 
 		//form_Validation
 		$this->form_validation->set_rules('ten_loai','Tên Loại','required');
+		$this->form_validation->set_rules('ma_loai_cha','Thuộc','required|callback_check_ma_loai_cha',
+					array('check_ma_loai_cha'=>'Bạn cần phải chọn 1 trong các lựa ở trường %s'));
+
+		$this->form_validation->set_rules('hinh_and','Hình ảnh','callback_check_upload',
+				array('check_upload'=>'Hình ảnh không đúng quy ước'));
+		
 		if($this->form_validation->run() == FALSE)
 		{
 			//Views
@@ -103,10 +110,59 @@ class Categogy extends CI_Controller
 		}
 		else
 		{
-			echo "Thành công!";
+			$this->check_form_add_categogy();
 		}
 		
 		
+	}
+	public function check_form_add_categogy()
+	{
+		$ten_loai = $this->input->post('ten_loai');
+		$ma_loai_cha = $this->input->post('ma_loai_cha');
+		$mo_ta = $this->input->post('mo_ta_them_loai');
+		$hinh = $this->upload->data('file_name');
+
+		//INSERT dữ liệu vào db
+		$kq= $this->m_categogy->add_categogy($ten_loai,$mo_ta,$ma_loai_cha,$hinh);
+		if($kq > 0)
+		{
+			echo "Thêm thành công, Sẽ làm view thông báo sau";
+		}
+		
+		
+	}
+
+	function check_upload()
+	{
+		//Cấu hình file upload , yêu cầu thư viện 'upload'
+
+		$config['upload_path'] = './assets/images/';
+		$config['allowed_types'] = 'gif|jpg|png';
+		$config['max_size'] = 2048;   //đơn vị kb
+		$config['max_width'] =1024;  //đơn vị pixel
+		$config['max_height'] = 768;
+
+		//Khởi tạo upload
+		$this->upload->initialize($config);
+
+
+
+		if(! $this->upload->do_upload('hinh_anh'))
+		{
+			//upload k thành công báo lỗi
+			//$this->form_validation->set_message('hinh_anh',$this->upload->display_errors());
+			return FALSE;
+		}
+		else {
+			return TRUE;
+		}
+	}
+	
+		
+	
+	function check_ma_loai_cha($str_value)
+	{
+		return ($str_value == -1) ? FALSE : TRUE ;
 	}
 
 	
@@ -115,6 +171,7 @@ class Categogy extends CI_Controller
 	{
 		
 	}
+	
 
 
 
