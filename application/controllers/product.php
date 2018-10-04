@@ -45,6 +45,8 @@ class Product extends CI_Controller {
 	{
 
 		$data['view']='admin/product/v_listproduct';
+		$data['edit_product']='admin/product/v_editproduct_ajax.php';
+		$data['list']=$this->m_product->get_cate_product(0);
 		$this->load->view('layouts/admin/layout',$data);
 		
 	}
@@ -158,6 +160,44 @@ class Product extends CI_Controller {
 		$htmlString.='</select></div>';
 		echo $htmlString;
 	}
+
+	public function ajax_edit()
+	{
+		$id = $this->input->post('id_product');
+		$data = $this->m_product->show_data_by_id($id);
+		$output = [];
+		$output['ma_san_pham'] = $id;
+		foreach ($data as $value) {
+			$output['ten_san_pham'] = $value['ten_san_pham'];
+			$output['hinh'] = $value['hinh'];
+			$output['mo_ta_tom_tat'] = $value['mo_ta_tom_tat'];
+			$output['don_gia'] = $value['don_gia'];
+			$output['ma_loai'] = $value['ma_loai'];
+			$output['ma_loai_cha'] = $value['ma_loai_cha'];
+		}	
+		$output['htmlParent'] = $this->get_html_category_string($output['ma_loai_cha'],0);
+		$output['htmlChild'] = $this->get_html_category_string($output['ma_loai'],$output['ma_loai_cha']);
+
+		echo json_encode($output);
+	}
+
+	public function get_html_category_string($id,$idparent)
+	{
+		$result = $this->m_product->get_cate_product($idparent);
+		$htmlString ='';                         
+		foreach ($result as $value) {
+			if($value['ma_loai']==$id){
+				$htmlString.='<option selected value="'.$value['ma_loai'].'">'.$value['ten_loai'].'</option>';
+			}
+			else{
+				$htmlString.='<option value="'.$value['ma_loai'].'">'.$value['ten_loai'].'</option>';
+			}
+			
+		}
+		return $htmlString;
+	}
+
+
 	//dung de test 
 	/*public function test()
 	{

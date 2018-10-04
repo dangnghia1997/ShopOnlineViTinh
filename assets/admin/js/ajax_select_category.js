@@ -13,10 +13,13 @@ function ajax_category($id_parent){
     })
     
 }
-
-$(document).ready(function() {
+ $(document).ready(function() {
+    
     $("#parent_cate").change(function(event) {
       /* Act on the event */
-      ajax_category($(this).val());
+      ajax_category(this.value);
+
     });
-});
+
+ });
+

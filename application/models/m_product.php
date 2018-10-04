@@ -38,7 +38,7 @@ class m_product extends CI_Model {
             $htmlString.='<td class="">'.$value['ten_loai'].'</td><td class="" width="250px">'.$value['mo_ta_tom_tat'].'</td>';
             $htmlString.='<td class="">'.$value['don_gia'].'</td><td class="sorting_1">'.$value['so_lan_xem'].'</td>';
             $htmlString.='<td class="sorting_1">'.$value['ngay_tao'].'</td>';
-            $htmlString.='<td class="" width="50px"><a href="#"><i class="mdi mdi-lead-pencil" style="color: #3498db; font-size: 20px"></i></a></td><td class="" width="50px"><a href="#"><i class="mdi mdi-delete" style="color: #e74c3c; font-size: 20px"></i></a></td></tr>';
+            $htmlString.='<td class="" width="50px"><a href="#" id="edit-product" data-id="'.$value['ma_san_pham'].'"><i class="mdi mdi-lead-pencil" style="color: #3498db; font-size: 20px"></i></a></td><td class="" width="50px"><a href="#"><i class="mdi mdi-delete" style="color: #e74c3c; font-size: 20px"></i></a></td></tr>';
 		}
 
 		$data = [
@@ -48,6 +48,17 @@ class m_product extends CI_Model {
 
 		return $data;
 
+	}
+
+	public function show_data_by_id($id)
+	{
+		$this->db->select('*,sp.hinh');
+		$this->db->from('san_pham as sp');
+		$this->db->join('loai_san_pham as lsp', 'sp.ma_loai = lsp.ma_loai', 'left');
+		$this->db->where('ma_san_pham', $id);
+		$result = $this->db->get();
+		$result = $result->result_array();
+		return $result;
 	}
 
 	public function get_page($page)
