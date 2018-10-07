@@ -5,7 +5,7 @@
 	<div class="">
 		<div class="col-md-6 col-lg-2 col-xlg-3">
 			<div class="card card-hover">
-					<div class="box bg-cyan text-center">
+					<div class="box bg-cyan text-center" data-toggle="modal" data-target="#addCategory">
 							<h1 class="font-light text-white"><i class="mdi mdi-pencil"></i></h1>
 							<h6 class="text-white">Elements</h6>
 					</div>
@@ -107,3 +107,5 @@
     </div>
   </div>
 </div>
+
+<?php $this->load->view('admin/categogy/v_add_modal_categogy') ?>
