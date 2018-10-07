@@ -1,17 +1,4 @@
-<style type="text/css">
-    .modal-content.edit-ajax {
-        background: #ecf0f1;
-        border: 1px solid #bdc3c77a;
-        border-radius: 9px;
-        box-shadow: 2px 2px #00000029;
-    }
-    .border-top {
-        border-top: 1px solid #e9ecef!important;
-        text-align: center;
-    }
-    /* span.error p{width: auto; padding: 0 0 0 120px; color: red; font-size: 90%; margin-left:270px; margin-bottom: -5px;margin-top: 10px;} */
-    .hidden {display: none;}
-</style>
+
 
 <div class="container">
   <!-- Trigger the modal with a button -->

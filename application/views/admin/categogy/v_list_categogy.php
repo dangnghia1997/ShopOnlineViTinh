@@ -2,6 +2,17 @@
 <div class="card">
   <div class="card-body">
     <h5 class="card-title">Danh sách loại sản phẩm</h5>
+	<div class="">
+		<div class="col-md-6 col-lg-2 col-xlg-3">
+			<div class="card card-hover">
+					<div class="box bg-cyan text-center">
+							<h1 class="font-light text-white"><i class="mdi mdi-pencil"></i></h1>
+							<h6 class="text-white">Elements</h6>
+					</div>
+			</div>
+		</div>
+	</div>	
+		
     <div class="table-responsive">
       <div id="zero_config_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
         <div class="row">
