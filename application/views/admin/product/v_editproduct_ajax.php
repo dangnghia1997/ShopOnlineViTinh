@@ -1,14 +1,9 @@
 <style type="text/css">
-    .card.edit-ajax {
-        width: 32%;
+    .modal-content.edit-ajax {
         background: #ecf0f1;
-        margin: 100px 40%;
-        position: fixed;
-        z-index: 30;
         border: 1px solid #bdc3c77a;
         border-radius: 9px;
         box-shadow: 2px 2px #00000029;
-        display: none;
     }
     .border-top {
         border-top: 1px solid #e9ecef!important;
@@ -17,9 +12,21 @@
     /* span.error p{width: auto; padding: 0 0 0 120px; color: red; font-size: 90%; margin-left:270px; margin-bottom: -5px;margin-top: 10px;} */
     .hidden {display: none;}
 </style>
+
+<div class="container">
+  <!-- Trigger the modal with a button -->
+  <!-- <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button> -->
+
+  <!-- Modal -->
 <form action="../product/add_product" method="post" enctype="multipart/form-data">
-        <div class="card edit-ajax">
-            <div class="card-body">
+  <div class="modal fade" id="editProduct" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content edit-ajax">
+
+        <div class="modal-body">
+
                 <h5 class="card-title text-center">Sửa sản phẩm</h5>
 
                 <div class="row mb-3 align-items-center">
@@ -33,6 +40,12 @@
                     <span class="error"><?php echo form_error('ten_san_pham'); ?></span>
                     
                 </div>
+
+                <input type="hidden" data-toggle="tooltip" class="form-control" id="so_trang" name="so_trang">
+
+                <input type="hidden" data-toggle="tooltip" class="form-control" id="ma_san_pham" name="ma_san_pham">
+
+
                 <div class="form-group row mb-3 align-items-center">
                     <label class="col-lg-3 col-md-12 text-right">Hình ảnh</label>
                     <div class="col-lg-8 col-md-12">
@@ -64,7 +77,6 @@
                    </div>
                    <div class="col-lg-8 col-md-12">
                        <select class="select2 form-control custom-select select2-hidden-accessible form-control" name="ma_loai" id="child_cate">
-                           
                        </select>
                    </div>
                 </div>
@@ -97,9 +109,20 @@
 
             <div class="border-top" style="margin: auto">
                <div class="card-body">
-                   <input type="submit" class="btn btn-success" value="Sửa sản phẩm" name="edit"></input>
+                   <input type="button" class="btn btn-success" value="Sửa sản phẩm" id="edit" name="edit"></input>
+                   <button type="button" class="btn btn-default" data-dismiss="modal">Thoát</button>
                </div>
            </div>
-        </div> 
+<!--         </div> 
+    </div> -->
 
-   </form>
+
+        </div> <!-- end body -->
+
+      </div> 
+      
+    </div>
+  </div>
+  </form>
+</div>
+

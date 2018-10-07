@@ -1,6 +1,10 @@
     <style type="text/css">
         span.error p{width: auto; padding: 0 0 0 120px; color: red; font-size: 90%; margin-left:270px; margin-bottom: -5px;margin-top: 10px;}
         .row.hidden {display: block;}
+        img#blah {
+            margin-left: 350px;
+            margin-top: 10px;
+        }
     </style>
      <form action="../product/add_product" method="post" enctype="multipart/form-data">
         <div class="card">
@@ -22,11 +26,30 @@
                     <label class="col-lg-3 col-md-12 text-right">Hình ảnh</label>
                     <div class="col-lg-8 col-md-12">
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="validatedCustomFile" name="hinh">
+                            <input type="file" class="custom-file-input" id="validatedCustomFile" onchange="readURL(this);" name="hinh">
+                            <button type="button" class="review" onclick="showReview('blah')">Review</button>
+                            <script type="text/javascript">
+                                function readURL(input) {
+                                  if (input.files && input.files[0]) {
+                                    var reader = new FileReader();
+                                    reader.onload = function (e) {
+                                      $('#blah')
+                                        .attr('src', e.target.result)
+                                        .width(100)
+                                        .height(100);
+                                    };
+                                    reader.readAsDataURL(input.files[0]);
+                                  }
+                                }
+                                function showReview(id){
+                                    document.getElementById(id).style.display='block';
+                                }
+                            </script>                                                        
                             <label class="custom-file-label" for="validatedCustomFile">Chọn hình ảnh...</label>
                             <div class="invalid-feedback">Example invalid custom file feedback</div>
                         </div>
                     </div>
+                    <img id="blah" src="#" alt="your image" style="display:none" />
                     <span class="error"><?php echo form_error('hinh'); ?></span>
                 </div>
 

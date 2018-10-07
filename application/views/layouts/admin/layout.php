@@ -93,7 +93,7 @@
     <script src="<?php echo base_url()?>assets/admin/js/pages/chart/chart-page-init.js"></script>
     <script src="<?php echo base_url()?>assets/admin/js/ajax_pagination.js"></script>
     <script src="<?php echo base_url()?>assets/admin/js/ajax_select_category.js"></script>
-    <script src="<?php echo base_url()?>assets/admin/js/ajax_edit_product.js"></script>
+    <script type="text/javascript" src="<?php echo base_url()?>assets/admin/js/ajax_edit_product.js"></script>
 </body>
 
 </html>

@@ -167,6 +167,7 @@ class Product extends CI_Controller {
 		$data = $this->m_product->show_data_by_id($id);
 		$output = [];
 		$output['ma_san_pham'] = $id;
+		$output['so_trang'] = $this->input->post('page_product');
 		foreach ($data as $value) {
 			$output['ten_san_pham'] = $value['ten_san_pham'];
 			$output['hinh'] = $value['hinh'];
@@ -196,6 +197,32 @@ class Product extends CI_Controller {
 		}
 		return $htmlString;
 	}
+
+	public function ajax_update()
+	{
+		# code...
+		$ma_san_pham = $this->input->post('ma_san_pham');
+		$so_trang = $this->input->post('so_trang');
+		$ten_san_pham = $this->input->post('ten_san_pham');
+		$don_gia = $this->input->post('don_gia');
+		$ma_loai = $this->input->post('ma_loai');
+		$ma_loai_cha = $this->input->post('ma_loai_cha');
+		$mo_ta_tom_tat = $this->input->post('mo_ta_tom_tat');
+
+		$data = array(
+			'ten_san_pham' => $ten_san_pham,
+			'don_gia' => $don_gia,
+			'ma_loai' => $ma_loai,
+			'ma_san_pham' => $ma_san_pham,
+			'mo_ta_tom_tat' => $mo_ta_tom_tat
+		);
+
+		$this->db->where('ma_san_pham', $ma_san_pham);
+		$this->db->update('san_pham', $data);
+		echo $so_trang;
+	}
+
+
 
 
 	//dung de test 
