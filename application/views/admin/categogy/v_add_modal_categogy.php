@@ -1,4 +1,4 @@
-<form action="" method="post" enctype="multipart/form-data">
+<form id='form_add_cate' action="" method="post" enctype="multipart/form-data">
   <div class="modal fade" id="addCategory" role="dialog">
     <div class="modal-dialog">
     
@@ -7,8 +7,9 @@
 
         <div class="modal-body">
 
-                <h5 class="card-title text-center">Thêm sản phẩm</h5>
+                <h5 class="card-title text-center">Thêm loại sản phẩm</h5>
 
+				<?php echo validation_errors()?>
                 <div class="row mb-3 align-items-center">
                     <div class="col-lg-3 col-md-12 text-right">
                         <span>Tên loại</span>
@@ -46,13 +47,21 @@
 				</div>
 				
 
-                <div class="row mb-3 align-items-center hidden">
+                <div class="row mb-3 align-items-center">
                     <div class="col-lg-3 col-md-12 text-right">
                         <span>Thuộc</span>
                     </div>
                     <div class="col-lg-8 col-md-12">
                         <select class="select2 form-control custom-select select2-hidden-accessible form-control" name="ma_loai_cha" id="ma_loai_cha">
-                            
+						<option value="-1" >Tất cả</option>
+						<?php
+						foreach($main_categogy as $l)
+						{
+						?>
+						<option value="<?php echo $l->ma_loai?>"> <?php echo $l->ten_loai?> </option>
+						<?php
+						}
+						?>
                         </select>
                     </div>
                 </div>
@@ -73,7 +82,7 @@
 
             <div class="border-top" style="margin: auto">
                <div class="card-body">
-                   <input type="button" class="btn btn-success" value="Sửa sản phẩm" id="edit" name="edit"></input>
+                   <input type="submit" onclick="ajax_add_categogy()" class="btn btn-success" value="Thêm" id="edit" name="edit"></input>
                    <button type="button" class="btn btn-default" data-dismiss="modal">Thoát</button>
                </div>
            </div>
