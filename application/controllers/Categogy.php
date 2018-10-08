@@ -22,7 +22,7 @@ class Categogy extends CI_Controller
 
 	public function pagination()
 	{
-		
+
 		$id_parent ='';
 		if( $this->input->post('id_parent') !== NULL)
 		{
@@ -30,7 +30,7 @@ class Categogy extends CI_Controller
 		}
 
 		$limit = $this->input->post('limit');
-		
+
 
 		if($id_parent == -1)
 		{
@@ -101,7 +101,7 @@ class Categogy extends CI_Controller
 
 		$this->form_validation->set_rules('hinh_and','Hình ảnh','callback_check_upload',
 				array('check_upload'=>'Hình ảnh không đúng quy ước'));
-		
+
 		if($this->form_validation->run() == FALSE)
 		{
 			//Views
@@ -112,8 +112,8 @@ class Categogy extends CI_Controller
 		{
 			$this->check_form_add_categogy();
 		}
-		
-		
+
+
 	}
 	public function check_form_add_categogy()
 	{
@@ -128,8 +128,8 @@ class Categogy extends CI_Controller
 		{
 			echo "Thêm thành công, Sẽ làm view thông báo sau";
 		}
-		
-		
+
+
 	}
 
 	function check_upload()
@@ -157,25 +157,25 @@ class Categogy extends CI_Controller
 			return TRUE;
 		}
 	}
-	
-		
-	
+
+
+
 	function check_ma_loai_cha($str_value)
 	{
 		return ($str_value == -1) ? FALSE : TRUE ;
 	}
 
-	
+
 
 	public function delete_categogy()
 	{
-		
+
 	}
-	
 
 
 
-	
+
+
 }
 
 ?>
