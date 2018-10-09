@@ -36,13 +36,29 @@
                     <label class="col-lg-3 col-md-12 text-right">Hình ảnh</label>
                     <div class="col-lg-8 col-md-12">
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="hinh" name="hinh">
-                            <label class="custom-file-label" for="validatedCustomFile">Chọn hình ảnh...</label>
+                            <input type="file" class="custom-file-input" id="hinh" name="hinh" onchange="review(this);">
+                            <label class="custom-file-label" for="validatedCustomFile" id="title_image">Chọn hình ảnh...</label>
 
                         </div>
+                        <script type="text/javascript">
+                            function review(input) {
+                              if (input.files && input.files[0]) {
+                                var reader = new FileReader();
+                                reader.onload = function (e) {
+                                  $('img#review_img')
+                                    .attr('src', e.target.result)
+                                    .width(100)
+                                    .height(100);
+
+                                };
+                                $('#title_image').html(input.files[0].name.slice(0, 30)+'...');
+                                reader.readAsDataURL(input.files[0]);
+                              }
+                            }
+                        </script>   
 
                     </div>
-                    <img src="" id="hinh" width="130" height="130" style="margin-left: 144px;margin-top: 10px;">
+                    <img src="" data-name="" id="review_img" width="130" height="130" style="margin-left: 144px;margin-top: 10px;">
                     <span class="error"><?php echo form_error('hinh'); ?></span>
                 </div>
 

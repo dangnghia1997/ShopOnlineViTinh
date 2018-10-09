@@ -31,15 +31,15 @@ class Product extends CI_Controller {
 			$this->form_validation->set_rules('hinh', 'Hình ảnh', 'required', array('required' => 'Chưa chọn hình ảnh để upload'));
 		}*/
 
-		if($this->form_validation->run()== False){
+		/*if($this->form_validation->run()== False){
 			$data['view']='admin/product/v_addproduct';
 			$data['list'] = $this->m_product->get_cate_product(0);
 			$this->load->view('layouts/admin/layout',$data);
 		}
-		else{
+		else{*/
 			$this->post_from_add_product();
-		}
-
+		//}
+		echo "tra ve";
 	}
 	public function list_product()  
 	{
@@ -97,54 +97,37 @@ class Product extends CI_Controller {
 		echo(json_encode($ajax_send));
 	}
 
+
+	public function upload_file()
+	{
+		if(isset($_FILES["hinh"]))  
+    	{  
+            $extension = explode('.', $_FILES['hinh']['name']);  
+            $new_name = rand() . '.' . $extension[1];  
+            $destination = 'assets/images/' . $new_name;  
+            move_uploaded_file($_FILES['hinh']['tmp_name'], $destination);  
+            return $new_name;
+        }else {
+        	echo "khong upload dc";
+        } 
+	}
+
 	public function post_from_add_product()
 	{
-		$ten_san_pham = $this->input->post('ten_san_pham');
-		$ma_loai = $this->input->post('ma_loai');
-		$don_gia = $this->input->post('don_gia');
-		$mo_ta_tom_tat = $this->input->post('mo_ta_tom_tat');
-
-		//xu ly lay du lieu file
-		$target_dir = "assets/images/";
-		$target_file = $target_dir . basename($_FILES["hinh"]["name"]);
-		$uploadOk = 1;
-		$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-		// Check if image file is a actual image or fake image
-		if(isset($_POST["submit"])) {
-		    $check = getimagesize($_FILES["hinh"]["tmp_name"]);
-		    if($check !== false) {
-		        echo "File is an image - " . $check["mime"] . ".";
-		        $uploadOk = 1;
-		    } else {
-		        echo "File is not an image.";
-		        $uploadOk = 0;
-		    }
-		}
-		// Allow certain file formats
-		if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-		&& $imageFileType != "gif" ) {
-		    echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-		    $uploadOk = 0;
-		}
-		// Check if $uploadOk is set to 0 by an error
-		if ($uploadOk == 0) {
-		    echo "Sorry, your file was not uploaded.";
-		// if everything is ok, try to upload file
-		}
-		else {
-		    if (move_uploaded_file($_FILES["hinh"]["tmp_name"], $target_file)) {
-		        echo "The file ". basename( $_FILES["hinh"]["name"]). " has been uploaded.";
-		    } else {
-		        echo "Sorry, there was an error uploading your file.";
-		    }
-		}
-
-		$hinh = basename( $_FILES["hinh"]["name"]);
+		$ten_san_pham = $this->input->post('add_ten_san_pham');
+		$ma_loai = $this->input->post('add_ma_loai');
+		$don_gia = $this->input->post('add_don_gia');
+		$mo_ta_tom_tat = $this->input->post('add_mo_ta_tom_tat');
+		$hinh = $this->upload_file();
+		echo '<pre>';
+		var_dump($hinh);
+		echo '</pre>';
 		$ngay_tao = date("Y/m/d");
-		if($this->m_product->insert_product($ten_san_pham,$ma_loai,$mo_ta_tom_tat,$don_gia,$hinh,$ngay_tao)){
-			$this->load->view('admin/product/success_add');
-		}
+
+		$this->m_product->insert_product($ten_san_pham,$ma_loai,$mo_ta_tom_tat,$don_gia,$hinh,$ngay_tao);
+		 echo 1;
 	}
+
 
 	public function ajax_select_category($idparent)
 	{
@@ -152,7 +135,7 @@ class Product extends CI_Controller {
 		$htmlString ='';
 		$htmlString.='<div class="col-lg-3 col-md-12 text-right">';
 		$htmlString.='<span>Loại sản phẩm</span></div><div class="col-lg-8 col-md-12">';
-        $htmlString.='<select class="select2 form-control custom-select select2-hidden-accessible form-control" name="ma_loai" id="child_cate">';
+        $htmlString.='<select class="select2 form-control custom-select select2-hidden-accessible form-control" name="add_ma_loai" id="add_child_cate">';
         $htmlString.='<option disabled selected>---Chọn loại sản phẩm---</option>';                           
 		foreach ($result as $value) {
 			$htmlString.='<option value="'.$value['ma_loai'].'">'.$value['ten_loai'].'</option>';
@@ -219,6 +202,14 @@ class Product extends CI_Controller {
 
 		$this->db->where('ma_san_pham', $ma_san_pham);
 		$this->db->update('san_pham', $data);
+		echo $so_trang;
+	}
+
+	public function ajax_delete()
+	{
+		$ma_san_pham = $this->input->post('id_product');
+		$this->m_product->delete_product($ma_san_pham);
+		$so_trang = $this->input->post('page_product');
 		echo $so_trang;
 	}
 

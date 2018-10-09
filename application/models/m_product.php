@@ -40,7 +40,7 @@ class m_product extends CI_Model {
             $htmlString.='<td class="">'.$value['ten_loai'].'</td><td class="" width="250px">'.$value['mo_ta_tom_tat'].'</td>';
             $htmlString.='<td class="">'.$value['don_gia'].'</td><td class="sorting_1">'.$value['so_lan_xem'].'</td>';
             $htmlString.='<td class="sorting_1">'.$value['ngay_tao'].'</td>';
-            $htmlString.='<td class="" width="50px"><a href="#" id="edit-product" data-page="'.$page.'" data-id="'.$value['ma_san_pham'].'" data-toggle="modal" data-target="#editProduct"><i class="mdi mdi-lead-pencil" style="color: #3498db; font-size: 20px"></i></a></td><td class="" width="50px"><a href="#"><i class="mdi mdi-delete" style="color: #e74c3c; font-size: 20px"></i></a></td></tr>';
+            $htmlString.='<td class="" width="50px"><a href="#" id="edit-product" data-page="'.$page.'" data-id="'.$value['ma_san_pham'].'" data-toggle="modal" data-target="#editProduct"><i class="mdi mdi-lead-pencil" style="color: #3498db; font-size: 20px"></i></a></td><td class="" width="50px"><a href="#" data-page="'.$page.'" data-id="'.$value['ma_san_pham'].'" id="delete-product"><i class="mdi mdi-delete" style="color: #e74c3c; font-size: 20px"></i></a></td></tr>';
 		}
 
 		$data = [
@@ -94,6 +94,12 @@ class m_product extends CI_Model {
 		$this->db->insert('san_pham', $data);
 
 		return $this->db->insert_id();
+	}
+
+	public function delete_product($ma_san_pham)
+	{
+		$this->db->where('ma_san_pham', $ma_san_pham);
+		$this->db->delete('san_pham');
 	}
 
 }

@@ -2,6 +2,7 @@
     <div class="card">
         <div class="card-body">
             <h3 class="card-title">Danh sách sản phẩm</h3>
+            <button class="btn btn-danger" data-toggle="modal" data-target="#addProduct">Thêm sản phẩm</button>
             <div class="table-responsive">
                 <div id="zero_config_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
                     <div class="row">
@@ -57,6 +58,7 @@
         </div>
     </div>
     <?php include('v_editproduct_ajax.php') ?>
+    <?php include('v_addproduct.php') ?>
 
 
 
