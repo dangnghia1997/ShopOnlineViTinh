@@ -10,7 +10,7 @@ class Product extends CI_Controller {
 
 	public function index()
 	{
-		
+
 	}
 
 	public function add_product()
@@ -48,14 +48,14 @@ class Product extends CI_Controller {
 		echo json_encode($data);
 
 	}
-	public function list_product()  
+	public function list_product()
 	{
 
 		$data['view']='admin/product/v_listproduct';
 		$data['edit_product']='admin/product/v_editproduct_ajax.php';
 		$data['list']=$this->m_product->get_cate_product(0);
 		$this->load->view('layouts/admin/layout',$data);
-		
+
 	}
 
 	public function ajax_pagination()
@@ -109,10 +109,10 @@ class Product extends CI_Controller {
 		$config['upload_path'] = 'assets/images/';
 		$config['allowed_types'] = 'gif|jpg|png';
 
-		
+
 		$this->load->library('upload',$config);
 		$this->upload->initialize($config);
-		
+
 		if ( ! $this->upload->do_upload($name)){
 			$data = array('error' => $this->upload->display_errors());
 		}
@@ -144,7 +144,7 @@ class Product extends CI_Controller {
 		$htmlString.='<div class="col-lg-3 col-md-12 text-right">';
 		$htmlString.='<span>Loại sản phẩm</span></div><div class="col-lg-8 col-md-12">';
         $htmlString.='<select class="select2 form-control custom-select select2-hidden-accessible form-control" name="add_ma_loai" id="add_child_cate">';
-        $htmlString.='<option disabled selected>---Chọn loại sản phẩm---</option>';                           
+        $htmlString.='<option disabled selected>---Chọn loại sản phẩm---</option>';
 		foreach ($result as $value) {
 			$htmlString.='<option value="'.$value['ma_loai'].'">'.$value['ten_loai'].'</option>';
 		}
@@ -166,7 +166,7 @@ class Product extends CI_Controller {
 			$output['don_gia'] = $value['don_gia'];
 			$output['ma_loai'] = $value['ma_loai'];
 			$output['ma_loai_cha'] = $value['ma_loai_cha'];
-		}	
+		}
 		$output['htmlParent'] = $this->get_html_category_string($output['ma_loai_cha'],0);
 		$output['htmlChild'] = $this->get_html_category_string($output['ma_loai'],$output['ma_loai_cha']);
 
@@ -176,7 +176,7 @@ class Product extends CI_Controller {
 	public function get_html_category_string($id,$idparent)
 	{
 		$result = $this->m_product->get_cate_product($idparent);
-		$htmlString ='';                         
+		$htmlString ='';
 		foreach ($result as $value) {
 			if($value['ma_loai']==$id){
 				$htmlString.='<option selected value="'.$value['ma_loai'].'">'.$value['ten_loai'].'</option>';
@@ -184,7 +184,7 @@ class Product extends CI_Controller {
 			else{
 				$htmlString.='<option value="'.$value['ma_loai'].'">'.$value['ten_loai'].'</option>';
 			}
-			
+
 		}
 		return $htmlString;
 	}
@@ -237,11 +237,11 @@ class Product extends CI_Controller {
 
 
 
-	//dung de test 
+	//dung de test
 	/*public function test()
 	{
 		$this->m_product->get_cate_product();
-		
+
 	}*/
 
 }

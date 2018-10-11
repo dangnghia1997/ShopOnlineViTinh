@@ -77,7 +77,7 @@ $db['default'] = array(
 	'dsn'	=> '',
 	'hostname' => 'localhost',
 	'username' => 'root',
-	'password' => '', //'password' => 'root'
+	'password' => 'root', //'password' => 'root'
 	'database' => 'dbshopvitinh',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
