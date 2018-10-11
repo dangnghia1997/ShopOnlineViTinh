@@ -98,10 +98,25 @@ class m_product extends CI_Model {
 
 	public function delete_product($ma_san_pham)
 	{
+		/*$this->db->select('*');
+		$this->db->from('san_pham');
+		$this->db->where('ma_san_pham', $ma_san_pham);
+		$data = $this->db->get();
+		$data = $data->result_array();*/
 		$this->db->where('ma_san_pham', $ma_san_pham);
 		$this->db->delete('san_pham');
+/*		echo '<pre>';
+		var_dump($data);
+		echo '</pre>';*/
+		
 	}
 
+	public function update_product($ma_san_pham,$data)
+	{
+		$this->db->where('ma_san_pham', $ma_san_pham);
+		$this->db->update('san_pham', $data);
+		
+	}
 }
 
 /* End of file m_product.php */

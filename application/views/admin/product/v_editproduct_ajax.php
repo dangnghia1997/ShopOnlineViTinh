@@ -4,7 +4,7 @@
   <!-- <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button> -->
 
   <!-- Modal -->
-<form action="../product/add_product" method="post" enctype="multipart/form-data">
+<form action="../product/add_product" method="post" enctype="multipart/form-data" id="form_edit_product">
   <div class="modal fade" id="editProduct" role="dialog">
     <div class="modal-dialog">
     

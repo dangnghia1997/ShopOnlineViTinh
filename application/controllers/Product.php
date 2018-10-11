@@ -25,21 +25,28 @@ class Product extends CI_Controller {
 		$this->form_validation->set_message('is_natural', '{field} phải là số.');
 
 		//Đặt luật cho từng field
-		$this->form_validation->set_rules('ten_san_pham', 'Tên sản phẩm', 'required|min_length[5]');
-		$this->form_validation->set_rules('don_gia', 'Đơn Giá', 'required|is_natural');
-		/*if(isset($_FILES['hinh']['name'])){
-			$this->form_validation->set_rules('hinh', 'Hình ảnh', 'required', array('required' => 'Chưa chọn hình ảnh để upload'));
-		}*/
-
-		/*if($this->form_validation->run()== False){
-			$data['view']='admin/product/v_addproduct';
-			$data['list'] = $this->m_product->get_cate_product(0);
-			$this->load->view('layouts/admin/layout',$data);
+		$this->form_validation->set_rules('add_ten_san_pham', 'Tên sản phẩm', 'required|min_length[5]');
+		$this->form_validation->set_rules('add_don_gia', 'Đơn Giá', 'required|is_natural');
+		$this->form_validation->set_rules('add_parent_cate', 'Danh Mục', 'required');
+		$this->form_validation->set_rules('add_ma_loai', 'Loại Sản Phẩm', 'required');
+		if(empty($_FILES['add_hinh']['name'])){
+			$this->form_validation->set_rules('add_hinh', 'Hình Ảnh', 'required' , array('required'=>'Chưa upload hình ảnh'));
 		}
-		else{*/
+
+		$data['status'] = true;
+		if($this->form_validation->run() == False){
+			/*$data['view']='admin/product/v_addproduct';
+			$data['list'] = $this->m_product->get_cate_product(0);
+			$this->load->view('layouts/admin/layout',$data);*/
+			$data['error'] = validation_errors();
+			$data['status']= false;
+
+		}
+		else{
 			$this->post_from_add_product();
-		//}
-		echo "tra ve";
+		}
+		echo json_encode($data);
+
 	}
 	public function list_product()  
 	{
@@ -97,20 +104,25 @@ class Product extends CI_Controller {
 		echo(json_encode($ajax_send));
 	}
 
-
-	public function upload_file()
+	public function upload_file($name)
 	{
-		if(isset($_FILES["hinh"]))  
-    	{  
-            $extension = explode('.', $_FILES['hinh']['name']);  
-            $new_name = rand() . '.' . $extension[1];  
-            $destination = 'assets/images/' . $new_name;  
-            move_uploaded_file($_FILES['hinh']['tmp_name'], $destination);  
-            return $new_name;
-        }else {
-        	echo "khong upload dc";
-        } 
+		$config['upload_path'] = 'assets/images/';
+		$config['allowed_types'] = 'gif|jpg|png';
+
+		
+		$this->load->library('upload',$config);
+		$this->upload->initialize($config);
+		
+		if ( ! $this->upload->do_upload($name)){
+			$data = array('error' => $this->upload->display_errors());
+		}
+		else{
+			$data = array('upload_data' => $this->upload->data());
+			return $this->upload->data('file_name');
+		}
 	}
+
+
 
 	public function post_from_add_product()
 	{
@@ -118,14 +130,10 @@ class Product extends CI_Controller {
 		$ma_loai = $this->input->post('add_ma_loai');
 		$don_gia = $this->input->post('add_don_gia');
 		$mo_ta_tom_tat = $this->input->post('add_mo_ta_tom_tat');
-		$hinh = $this->upload_file();
-		echo '<pre>';
-		var_dump($hinh);
-		echo '</pre>';
+		$hinh=$this->upload_file('image');
 		$ngay_tao = date("Y/m/d");
 
 		$this->m_product->insert_product($ten_san_pham,$ma_loai,$mo_ta_tom_tat,$don_gia,$hinh,$ngay_tao);
-		 echo 1;
 	}
 
 
@@ -191,17 +199,30 @@ class Product extends CI_Controller {
 		$ma_loai = $this->input->post('ma_loai');
 		$ma_loai_cha = $this->input->post('ma_loai_cha');
 		$mo_ta_tom_tat = $this->input->post('mo_ta_tom_tat');
+		$hinh = $this->upload_file('hinh');
 
-		$data = array(
-			'ten_san_pham' => $ten_san_pham,
-			'don_gia' => $don_gia,
-			'ma_loai' => $ma_loai,
-			'ma_san_pham' => $ma_san_pham,
-			'mo_ta_tom_tat' => $mo_ta_tom_tat
-		);
+		if($hinh==""){
+			$data = array(
+				'ten_san_pham' => $ten_san_pham,
+				'don_gia' => $don_gia,
+				'ma_loai' => $ma_loai,
+				'ma_san_pham' => $ma_san_pham,
+				'mo_ta_tom_tat' => $mo_ta_tom_tat
+			);
+		}
+		else{
+			$data = array(
+				'ten_san_pham' => $ten_san_pham,
+				'don_gia' => $don_gia,
+				'ma_loai' => $ma_loai,
+				'ma_san_pham' => $ma_san_pham,
+				'mo_ta_tom_tat' => $mo_ta_tom_tat,
+				'hinh'=> $hinh
+			);
+		}
 
-		$this->db->where('ma_san_pham', $ma_san_pham);
-		$this->db->update('san_pham', $data);
+		$this->m_product->update_product($ma_san_pham,$data);
+
 		echo $so_trang;
 	}
 

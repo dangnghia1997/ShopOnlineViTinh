@@ -22,10 +22,26 @@
                         <span>Tên</span>
                     </div>
                     <div class="col-lg-8 col-md-12">
-                        <input type="text" data-toggle="tooltip" class="form-control" id="add_ten_san_pham" placeholder="Nhập tên sản phẩm" name="add_ten_san_pham" value="">
+                        <input type="text" data-toggle="tooltip" class="form-control" id="add_ten_san_pham" placeholder="Nhập tên sản phẩm" name="add_ten_san_pham" value="" onkeyup="check(this.value)">
                         
                     </div>
-                    <span class="error"><?php echo form_error('ten_san_pham'); ?></span>
+                    <div class="col-lg-8 col-md-12">
+                      <div class="valid-feedback" id="add_ten_san_pham_feedback">Woohoo!</div>
+                    </div>
+
+                    <script type="text/javascript">
+                        function check(str){
+                          var input = document.getElementById("add_ten_san_pham");
+                          if(min_length(str,10)){
+                            input.classList.remove("is-invalid");
+                            input.classList.add("is-valid");
+                          }
+                          else{
+                            input.classList.remove("is-valid");
+                            input.classList.add("is-invalid");
+                          }
+                        }
+                    </script>
                     
                 </div>
                 <div class="form-group row mb-3 align-items-center">
