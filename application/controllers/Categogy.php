@@ -99,7 +99,7 @@ class Categogy extends CI_Controller
 		$this->form_validation->set_rules('ma_loai_cha','Thuộc','required|callback_check_ma_loai_cha',
 					array('check_ma_loai_cha'=>'Bạn cần phải chọn 1 trong các lựa ở trường %s'));
 
-		$this->form_validation->set_rules('hinh_and','Hình ảnh','callback_check_upload',
+		$this->form_validation->set_rules('hinh_anh','Hình ảnh','callback_check_upload',
 				array('check_upload'=>'Hình ảnh không đúng quy ước'));
 
 		if($this->form_validation->run() == FALSE)
@@ -167,14 +167,28 @@ class Categogy extends CI_Controller
 
 
 
-	public function delete_categogy()
+	public function test_upload()
 	{
 
+		print_r($_POST);
+
+		$this->form_validation->set_rules('ten_loai','Tên Loại','required');
+		/*$this->form_validation->set_rules('ma_loai_cha','Thuộc','required|callback_check_ma_loai_cha',
+					array('check_ma_loai_cha'=>'Bạn cần phải chọn 1 trong các lựa ở trường %s'));
+
+		$this->form_validation->set_rules('hinh_anh','Hình ảnh','callback_check_upload',
+				array('check_upload'=>'Hình ảnh không đúng quy ước'));*/
+
+			if($this->form_validation->run() == FALSE)
+			{
+				//Views
+				echo "<hr>".validation_errors();
+			}
+			else
+			{
+					echo "OKKKKKK";
+			}
 	}
-
-
-
-
 
 }
 
