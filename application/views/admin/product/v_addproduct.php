@@ -5,6 +5,9 @@
             margin-left: 122px;
             margin-top: 10px;
         }
+        .invalid-feedback{
+          display: block;
+        }
     </style>
     <form id='form_add_product' action="" method="post" enctype="multipart/form-data">
   <div class="modal fade" id="addProduct" role="dialog">
@@ -23,11 +26,11 @@
                     </div>
                     <div class="col-lg-8 col-md-12">
                         <input type="text" data-toggle="tooltip" class="form-control" id="add_ten_san_pham" placeholder="Nhập tên sản phẩm" name="add_ten_san_pham" value="" onkeyup="check(this.value)">
-                        
+                        <div class="invalid-feedback" id="add_ten_san_pham_feedback"></div>
                     </div>
-                    <div class="col-lg-8 col-md-12">
-                      <div class="valid-feedback" id="add_ten_san_pham_feedback">Woohoo!</div>
-                    </div>
+                   <!--  <div class="col-lg-8 col-md-12">
+                     
+                   </div> -->
 
                     <script type="text/javascript">
                         function check(str){
@@ -65,7 +68,7 @@
                                 }
                             </script>                                                        
                             <label class="custom-file-label" for="validatedCustomFile" id="add_title_image">Chọn hình ảnh...</label>
-                            <div class="invalid-feedback">Example invalid custom file feedback</div>
+                            <div class="invalid-feedback" id="add_hinh_feedback"></div>
                         </div>
                     </div>
                     <div class="col-lg-8 col-md-12">
@@ -85,6 +88,7 @@
                             <?php endforeach ?>
                             
                         </select>
+                        <div class="invalid-feedback" id="add_parent_cate_feedback"></div>
                     </div>
                 </div>
                 
@@ -100,6 +104,7 @@
                            
                        </select>
                    </div> -->
+                   
                 </div>
 
                 <div class="row mb-3 align-items-center">
@@ -113,8 +118,9 @@
                                 <span class="input-group-text" id="basic-addon2">đ</span>
                             </div>
                         </div>
+                        <div class="invalid-feedback" id="add_don_gia_feedback"></div>
                     </div>
-                     <span class="error"><?php echo form_error('don_gia'); ?></span>
+                    
                 </div>
 
                 <div class="row mb-3 align-items-center">

@@ -18,6 +18,7 @@ class Product extends CI_Controller {
 		# code...
 		$this->load->helper(array('form','url'));
 		$this->load->library('form_validation');
+		$this->form_validation->set_error_delimiters('','');
 
 		//Đặt lời nhắn bằng tiếng việt cho lỗi
 		$this->form_validation->set_message('min_length', '{field} không được nhỏ hơn {param} ký tự.');
@@ -40,6 +41,13 @@ class Product extends CI_Controller {
 			$this->load->view('layouts/admin/layout',$data);*/
 			$data['error'] = validation_errors();
 			$data['status']= false;
+			$data['error'] = [
+			    'ten_san_pham' => form_error('add_ten_san_pham'), 
+			    'don_gia' => form_error('add_don_gia'), 
+			    'parent_cate' => form_error('add_parent_cate'), 
+			    'ma_loai' => form_error('add_ma_loai'), 
+			    'hinh' => form_error('add_hinh'), 
+			];
 
 		}
 		else{
@@ -148,7 +156,7 @@ class Product extends CI_Controller {
 		foreach ($result as $value) {
 			$htmlString.='<option value="'.$value['ma_loai'].'">'.$value['ten_loai'].'</option>';
 		}
-		$htmlString.='</select></div>';
+		$htmlString.='</select><div class="invalid-feedback" id="add_ma_loai_feedback"></div></div>';
 		echo $htmlString;
 	}
 

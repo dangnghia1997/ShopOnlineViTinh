@@ -99,7 +99,12 @@ jQuery(document).ready(function($) {
 		 	})
 		 	.done(function(data) {
 		 		if(data.status == false){
-		 			alert(data.error);
+		 			/*alert(data.error.ten_san_pham);*/
+		 			$("#add_ten_san_pham_feedback").html(data.error.ten_san_pham);
+		 			$("#add_hinh_feedback").html(data.error.hinh);
+		 			$("#add_don_gia_feedback").html(data.error.don_gia);
+		 			$("#add_ma_loai_feedback").html(data.error.ma_loai);
+		 			$("#add_parent_cate_feedback").html(data.error.parent_cate);
 		 		}
 		 		else{
 		 			$("#addProduct").modal('hide');
@@ -114,6 +119,7 @@ jQuery(document).ready(function($) {
 
 	$("#addProduct").on("hidden.bs.modal", function() {
     	$("#form_add_product")[0].reset();
+    	$(".invalid-feedback").html('');
  	 });
 
 
