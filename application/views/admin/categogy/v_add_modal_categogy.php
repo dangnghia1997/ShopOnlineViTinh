@@ -9,7 +9,7 @@
 
                 <h5 class="card-title text-center">Thêm loại sản phẩm</h5>
 
-				<?php echo validation_errors()?>
+
                 <div class="row mb-3 align-items-center">
                     <div class="col-lg-3 col-md-12 text-right">
                         <span>Tên loại</span>
@@ -18,28 +18,27 @@
                         <input type="text" data-toggle="tooltip" class="form-control" id="ten_loai" placeholder="Nhập tên sản phẩm" name="ten_loai" value="">
 
                     </div>
-
                 </div>
+                <div id='error_ten_loai' style="color:red"></div>
 
                 <div class="form-group row mb-3 align-items-center">
                     <label class="col-lg-3 col-md-12 text-right">Hình ảnh</label>
                     <div class="col-lg-8 col-md-12">
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="hinh_anh" name="hinh_anh">
+                            <input type="file" class="custom-file-input" id="hinh_anh" name="hinh_anh" required>
                             <label class="custom-file-label" for="validatedCustomFile">Chọn hình ảnh...</label>
-
                         </div>
-
                     </div>
-
-
                 </div>
-				<div class="form-group row mb-3 align-items-center">
-					<div class="col-lg-3 col-md-12"></div>
-					<div class="col-lg-8 col-md-12">
-						<img src="<?php echo base_url()."assets/admin/images/background/no-image.png"?>" id="hinh" alt="no Image" width="200" height="200">
-					</div>
-				</div>
+
+                <div id='error_hinh_anh' style="color:red"></div>
+
+        				<div class="form-group row mb-3 align-items-center">
+        					<div class="col-lg-3 col-md-12"></div>
+        					<div class="col-lg-8 col-md-12">
+        						<img src="<?php echo base_url()."assets/admin/images/background/no-image.png"?>" id="hinh" alt="no Image" width="200" height="200">
+        					</div>
+        				</div>
 
 
                 <div class="row mb-3 align-items-center">
@@ -61,7 +60,7 @@
                     </div>
                 </div>
 
-
+                <div id='error_ma_loai_cha' style="color:red"></div>
 
                 <div class="row mb-3 align-items-center">
                     <div class="col-lg-3 col-md-12 text-right">
@@ -69,7 +68,7 @@
                     </div>
                     <div class="col-lg-8 col-md-12">
                         <textarea class="form-control" name="mo_ta_them_loai" id="mo_ta_them_loai">
-						</textarea>
+						            </textarea>
                     </div>
                 </div>
 

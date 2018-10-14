@@ -117,47 +117,101 @@ class Categogy extends CI_Controller
 	}
 	public function check_form_add_categogy()
 	{
-		$ten_loai = $this->input->post('ten_loai');
-		$ma_loai_cha = $this->input->post('ma_loai_cha');
-		$mo_ta = $this->input->post('mo_ta_them_loai');
-		$hinh = $this->upload->data('file_name');
+		//form validation
+		$res['errors'] = array(
+			'ten_loai' 		=> 		'',
+			'ma_loai_cha' => 		'',
+			'hinh_anh'    => 		''
+		);
 
-		//INSERT dữ liệu vào db
-		$kq= $this->m_categogy->add_categogy($ten_loai,$mo_ta,$ma_loai_cha,$hinh);
-		if($kq > 0)
+
+		$res['test']=$_FILES;
+		$this->form_validation->set_rules('ten_loai','Tên Loại','required');
+		$this->form_validation->set_rules('ma_loai_cha','Thuộc','required|callback_check_ma_loai_cha',
+					array('check_ma_loai_cha'=>'Bạn cần phải chọn 1 trong các lựa ở trường %s'));
+		$this->form_validation->set_rules('anh','','callback_check_upload');
+		$res['status']=0; // 0: là có lỗi validation
+		if($this->form_validation->run() == FALSE)
 		{
-			echo "Thêm thành công, Sẽ làm view thông báo sau";
+			$res['errors']=array(
+				'ten_loai' 		=> 		form_error('ten_loai'),
+				'ma_loai_cha' => 		form_error('ma_loai_cha'),
+				'hinh_anh'    => 		form_error('anh')
+			);
 		}
+		else
+		{
+			$res['status']=1;
+
+			$config['upload_path'] = './assets/images/';
+			$config['allowed_types'] = 'gif|jpg|png|jpeg';
+			$config['max_size'] = 102400;   //đơn vị kb
+			$config['max_width'] =1024;  //đơn vị pixel
+			$config['max_height'] = 768;
+
+			//Khởi tạo upload
+			$this->upload->initialize($config);
+
+
+
+			if(! $this->upload->do_upload('anh'))
+			{
+					$res['errors']['loi_upload'] = $this->upload->display_errors();
+			}
+			else
+			{
+
+				$ten_loai = $this->input->post('ten_loai');
+				$ma_loai_cha = $this->input->post('ma_loai_cha');
+				$mo_ta = $this->input->post('mo_ta_them_loai');
+				$hinh = $this->upload->data('anh');
+				$res['errors']['name_anh'] = $hinh;
+					//INSERT dữ liệu vào db
+				//	$kq= $this->m_categogy->add_categogy($ten_loai,$mo_ta,$ma_loai_cha,$hinh);
+			}
+		}
+
+
+		echo json_encode($res);
 
 
 	}
 
-	function check_upload()
+	public function check_upload()
 	{
-		//Cấu hình file upload , yêu cầu thư viện 'upload'
-
-		$config['upload_path'] = './assets/images/';
-		$config['allowed_types'] = 'gif|jpg|png';
-		$config['max_size'] = 2048;   //đơn vị kb
-		$config['max_width'] =1024;  //đơn vị pixel
-		$config['max_height'] = 768;
-
-		//Khởi tạo upload
-		$this->upload->initialize($config);
-
-
-
-		if(! $this->upload->do_upload('hinh_anh'))
+		if(!empty($_FILES))
 		{
-			//upload k thành công báo lỗi
-			//$this->form_validation->set_message('hinh_anh',$this->upload->display_errors());
+				$allowed_type=array('image/jpeg','image/png','image/jpg','image/gif');
+				$allowed_max_size=102400; //kb
+				if($_FILES['anh']['size'] <= $allowed_max_size && in_array($_FILES['anh']['type'],$allowed_type))
+				{
+					return TRUE;
+				}
+				else
+				{
+						if($_FILES['anh']['size'] > $allowed_max_size)
+						{
+							$this->form_validation->set_message('check_upload','Vui lòng chọn file ảnh có kích thước < 100Mb');
+							return FALSE;
+						}
+						else if(!in_array($_FILES['anh']['type'],$allowed_type))
+						{
+								$this->form_validation->set_message('check_upload','Vui lòng chọn file thuộc loại jpeg | png | jpg|  gif');
+								return FALSE;
+						}
+						else
+						{
+								$this->form_validation->set_message('check_upload','File phải là jpeg | png | jpg|  gif và kích thước < 100Mb');
+								return FALSE;
+						}
+				}
+		}
+		else
+		{
+			$this->form_validation->set_message('check_upload','Vui lòng chọn một ảnh để upload!!');
 			return FALSE;
 		}
-		else {
-			return TRUE;
-		}
 	}
-
 
 
 	function check_ma_loai_cha($str_value)
@@ -167,28 +221,7 @@ class Categogy extends CI_Controller
 
 
 
-	public function test_upload()
-	{
 
-		print_r($_POST);
-
-		$this->form_validation->set_rules('ten_loai','Tên Loại','required');
-		/*$this->form_validation->set_rules('ma_loai_cha','Thuộc','required|callback_check_ma_loai_cha',
-					array('check_ma_loai_cha'=>'Bạn cần phải chọn 1 trong các lựa ở trường %s'));
-
-		$this->form_validation->set_rules('hinh_anh','Hình ảnh','callback_check_upload',
-				array('check_upload'=>'Hình ảnh không đúng quy ước'));*/
-
-			if($this->form_validation->run() == FALSE)
-			{
-				//Views
-				echo "<hr>".validation_errors();
-			}
-			else
-			{
-					echo "OKKKKKK";
-			}
-	}
 
 }
 

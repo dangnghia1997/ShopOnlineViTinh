@@ -66,19 +66,37 @@ $(document).ready(function() {
 
 
       $.ajax({
-        url: baseURL + 'categogy/test_upload' ,
+        url: baseURL + 'Categogy/check_form_add_categogy' ,
+        dataType:'json',
         data: form,
         contentType: false,
         processData: false,
         type: 'POST',
         success: function(data){
-            console.log(data);
+            if(data.status == 0)
+            {
+              $('#error_ten_loai').html(data.errors.ten_loai);
+              $('#error_ma_loai_cha').html(data.errors.ma_loai_cha);
+              $('#error_hinh_anh').html(data.errors.hinh_anh);
+
+            }
+            else
+            {
+              $('#error_ten_loai').html('');
+              $('#error_ma_loai_cha').html('');
+              $('#error_hinh_anh').html('');
+              alert('OKKKKKKK');
+              alert(data.errors.loi_upload);
+              alert('data.errors.name_anh');
+            }
         },
         error: function()
         {
           alert('loi upload');
         }
       });
+
+      return FALSE;
 
   }));
 
